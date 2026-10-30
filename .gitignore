@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.yuwen/
+work/
+.env
+*.sqlite*
+*.log
+outputs/
+.reference/
+*.tgz
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx

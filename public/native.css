@@ -1,0 +1,1721 @@
+/* All selectors belong to the plugin; the DSH settings shell stays in control. */
+@font-face {
+  font-family: 'Fish Zpix';
+  src: url('./assets/fonts/zpix-v3.3.0.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+.fish-brain {
+  --fish-font: 'Fish Zpix', 'Microsoft YaHei', sans-serif;
+  --fish-ink: #233b66;
+  --fish-ink-strong: #1a2d52;
+  --fish-blue: #3965cd;
+  --fish-blue-hover: #2a54b8;
+  --fish-blue-deep: #234793;
+  --fish-line: #b8c9eb;
+  --fish-line-soft: #d7e2f6;
+  --fish-paper: #ffffff;
+  --fish-paper-tint: #fbfcff;
+  --fish-soft: #eef4ff;
+  --fish-soft-strong: #dce8ff;
+  --fish-muted: #607393;
+  --fish-shadow: #d8e4fb;
+  --fish-focus: #5d8df2;
+  --fish-success: #2c7a5b;
+  --fish-success-soft: #e8f6ef;
+  --fish-danger: #a0392f;
+  --fish-danger-soft: #fff3ec;
+  --fish-danger-line: #e7b6a9;
+  --fish-warn: #b5701b;
+
+  /* One accent per memory kind, used on tags, card edges, counters and filters. */
+  --fish-cognition: #3965cd;
+  --fish-cognition-soft: #eaf1ff;
+  --fish-experience: #2f7b92;
+  --fish-experience-soft: #e6f5fa;
+  --fish-resonance: #7a5bc4;
+  --fish-resonance-soft: #f1edfc;
+  --fish-self: #5b6a99;
+  --fish-self-soft: #edf0f9;
+
+  /* Pixel motion: short, stepped, never smooth-eased. */
+  --fish-step-fast: 120ms steps(3, end);
+  --fish-step: 180ms steps(4, end);
+
+  position: relative;
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto 12px;
+  color: var(--fish-ink);
+  background: var(--fish-paper);
+  font: 12px/2 var(--fish-font);
+  font-synthesis: none;
+  container-type: inline-size;
+  color-scheme: light;
+  -webkit-font-smoothing: none;
+}
+
+.fish-brain *,
+.fish-brain *::before,
+.fish-brain *::after {
+  box-sizing: border-box;
+}
+
+.fish-brain h2,
+.fish-brain h3,
+.fish-brain p,
+.fish-brain dl,
+.fish-brain dd,
+.fish-brain ol {
+  margin: 0;
+}
+
+.fish-brain button,
+.fish-brain input,
+.fish-brain select,
+.fish-brain textarea {
+  font: inherit;
+}
+
+.fish-brain pre,
+.fish-brain code {
+  font-family: var(--fish-font);
+}
+
+.fish-brain button {
+  cursor: pointer;
+}
+
+.fish-brain button:disabled,
+.fish-brain input:disabled,
+.fish-brain select:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.fish-brain :focus-visible {
+  outline: 3px solid var(--fish-focus);
+  outline-offset: 2px;
+}
+
+.fish-brain .fish-icon {
+  display: inline-block;
+  flex-shrink: 0;
+  vertical-align: -1px;
+}
+
+/* ---------- Header ---------- */
+
+.fish-brain .fish-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 2px 14px;
+}
+
+.fish-brain .fish-brand {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.fish-brain .fish-brand h2 {
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  line-height: 1.5;
+}
+
+.fish-brain .fish-logo {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+}
+
+.fish-brain .fish-brand:hover .fish-logo .fish-icon {
+  animation: fish-wiggle 480ms steps(1, end) 1;
+}
+
+.fish-brain .fish-version {
+  color: var(--fish-muted);
+  letter-spacing: 1px;
+}
+
+/* ---------- Buttons ---------- */
+
+.fish-brain .fish-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 5px 12px;
+  color: var(--fish-ink);
+  background: var(--fish-paper);
+  border: 2px solid var(--fish-line);
+  border-radius: 0;
+  box-shadow: 2px 2px 0 var(--fish-line-soft);
+  transition:
+    transform var(--fish-step-fast),
+    box-shadow var(--fish-step-fast),
+    background-color var(--fish-step-fast),
+    border-color var(--fish-step-fast);
+}
+
+.fish-brain .fish-button:hover:not(:disabled) {
+  background: var(--fish-soft);
+  border-color: var(--fish-blue);
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 var(--fish-line);
+}
+
+.fish-brain .fish-button:active:not(:disabled) {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+  transition: none;
+}
+
+.fish-brain .fish-button-primary {
+  color: white;
+  background: var(--fish-blue);
+  border-color: var(--fish-ink);
+  box-shadow: 2px 2px 0 var(--fish-line);
+}
+
+.fish-brain .fish-button-primary:hover:not(:disabled) {
+  color: white;
+  background: var(--fish-blue-hover);
+  border-color: var(--fish-ink);
+}
+
+.fish-brain .fish-button-small {
+  padding: 1px 8px;
+  box-shadow: 1px 1px 0 var(--fish-line-soft);
+}
+
+.fish-brain .fish-button[aria-busy='true'] {
+  cursor: progress;
+}
+
+.fish-brain .fish-refresh {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.fish-brain .fish-refresh[aria-busy='true'] .fish-refresh-icon {
+  animation: fish-spin 640ms steps(8, end) infinite;
+}
+
+.fish-brain .fish-text-button {
+  padding: 0 2px;
+  color: var(--fish-blue);
+  background: transparent;
+  border: 0;
+}
+
+.fish-brain .fish-text-button:hover:not(:disabled) {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.fish-brain .fish-text-button span {
+  display: inline-block;
+  transition: transform var(--fish-step-fast);
+}
+
+.fish-brain .fish-text-button:hover span {
+  transform: translateX(3px);
+}
+
+.fish-brain .fish-icon-button {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  color: inherit;
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+.fish-brain .fish-icon-button:hover {
+  border-color: currentColor;
+}
+
+/* ---------- Frame: toolbar + tabs + panel read as one card ---------- */
+
+.fish-brain .fish-frame {
+  border: 2px solid var(--fish-ink);
+  box-shadow: 4px 4px 0 var(--fish-shadow);
+  background: var(--fish-paper);
+}
+
+.fish-brain .fish-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  background: var(--fish-soft);
+  border-bottom: 2px solid var(--fish-ink);
+}
+
+.fish-brain .fish-persona-select {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  color: var(--fish-muted);
+}
+
+.fish-brain select,
+.fish-brain input:not([type='checkbox']):not([type='radio']) {
+  max-width: 100%;
+  min-height: 32px;
+  padding: 4px 9px;
+  color: var(--fish-ink);
+  background: var(--fish-paper);
+  border: 2px solid var(--fish-line);
+  border-radius: 0;
+  transition: border-color var(--fish-step-fast);
+}
+
+.fish-brain select:hover:not(:disabled),
+.fish-brain input:not([type='checkbox']):not([type='radio']):hover:not(:disabled) {
+  border-color: #8eaae0;
+}
+
+.fish-brain select:focus,
+.fish-brain input:not([type='checkbox']):not([type='radio']):focus {
+  border-color: var(--fish-blue);
+}
+
+.fish-brain .fish-persona-select select {
+  max-width: 270px;
+  min-width: 0;
+}
+
+.fish-brain .fish-retained-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  padding: 6px 12px;
+  color: #7a4c12;
+  background: #fff6e6;
+  border-bottom: 2px solid var(--fish-ink);
+  background-image: repeating-linear-gradient(
+    135deg,
+    transparent 0 6px,
+    rgba(181, 112, 27, 0.07) 6px 12px
+  );
+}
+
+.fish-brain .fish-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: var(--fish-soft-strong);
+  border-bottom: 2px solid var(--fish-ink);
+}
+
+.fish-brain .fish-tabs button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 6px 8px;
+  color: var(--fish-ink);
+  background: transparent;
+  border: 0;
+  border-right: 2px solid var(--fish-ink);
+  border-radius: 0;
+  letter-spacing: 2px;
+  transition: background-color var(--fish-step-fast), color var(--fish-step-fast);
+}
+
+.fish-brain .fish-tabs button:last-child {
+  border-right: 0;
+}
+
+.fish-brain .fish-tabs button[aria-selected='true'] {
+  color: white;
+  background: var(--fish-blue);
+  box-shadow: inset 0 -4px 0 var(--fish-blue-deep);
+}
+
+.fish-brain .fish-tabs button:hover:not([aria-selected='true']) {
+  background: #c9dcff;
+}
+
+.fish-brain .fish-tabs button:hover:not([aria-selected='true']) .fish-icon {
+  animation: fish-hop 360ms steps(2, end) 1;
+}
+
+.fish-brain .fish-tabs button:focus-visible {
+  outline-offset: -5px;
+}
+
+.fish-brain .fish-tab-dot {
+  width: 6px;
+  height: 6px;
+  margin-left: -4px;
+  align-self: flex-start;
+  margin-top: 6px;
+  background: #e2574c;
+  box-shadow: 0 0 0 2px var(--fish-soft-strong);
+  animation: fish-blink 1s steps(1, end) infinite;
+}
+
+.fish-brain .fish-panel {
+  min-width: 0;
+  padding: 18px;
+  background: var(--fish-paper);
+  animation: fish-panel-in var(--fish-step) both;
+}
+
+/* ---------- Profile ---------- */
+
+.fish-brain .fish-profile {
+  display: grid;
+  grid-template-columns: 148px minmax(0, 1fr);
+  gap: 18px;
+  align-items: center;
+  padding: 12px;
+  background-color: #f3f7ff;
+  background-image: radial-gradient(#c8d8f4 1px, transparent 1px);
+  background-size: 8px 8px;
+  border: 2px solid var(--fish-line);
+}
+
+.fish-brain .fish-portrait-frame {
+  position: relative;
+  overflow: hidden;
+  min-width: 0;
+  aspect-ratio: 0.85;
+  background: #b1d0e7;
+  border: 2px solid var(--fish-ink);
+  box-shadow: 4px 4px 0 #bccdee;
+}
+
+.fish-brain .fish-portrait {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 30%;
+  image-rendering: pixelated;
+  transform-origin: 50% 100%;
+  animation: fish-breathe 2.4s steps(1, end) infinite;
+}
+
+/* Portraits are stacked; the active mood fades in with a stepped transition. */
+.fish-brain .fish-portrait-frame .fish-portrait {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 240ms steps(3, end);
+}
+
+.fish-brain .fish-portrait-frame .fish-portrait[data-active] {
+  opacity: 1;
+}
+
+.fish-brain .fish-portrait-frame:hover .fish-portrait {
+  animation: fish-jump 420ms steps(3, end) 1;
+}
+
+.fish-brain .fish-portrait-caption {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 2px 4px;
+  color: white;
+  background: var(--fish-ink);
+  text-align: center;
+  font-size: 12px;
+  letter-spacing: 0;
+}
+
+.fish-brain .fish-profile-info {
+  min-width: 0;
+  padding: 6px 10px 6px 0;
+  background: #f3f7ff;
+}
+
+.fish-brain .fish-eyebrow {
+  color: var(--fish-muted);
+  letter-spacing: 1px;
+}
+
+.fish-brain .fish-profile-info h2 {
+  margin-bottom: 6px;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.fish-brain .fish-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 6px;
+  color: #2950a1;
+  background: #e2edff;
+  border: 1px solid #adc6f1;
+}
+
+.fish-brain .fish-status[data-off] {
+  color: var(--fish-muted);
+  background: #f0f2f6;
+  border-color: #cdd4e0;
+}
+
+.fish-brain .fish-status i,
+.fish-brain .fish-footer i,
+.fish-brain .fish-learning i {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  background: var(--fish-blue);
+}
+
+.fish-brain .fish-status[data-off] i {
+  background: #9aa6bb;
+}
+
+.fish-brain .fish-profile-divider {
+  height: 2px;
+  margin: 12px 0 6px;
+  background: repeating-linear-gradient(90deg, #bdcdeb 0 4px, transparent 4px 8px);
+}
+
+.fish-brain .fish-profile-info dl > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 4px;
+}
+
+.fish-brain .fish-profile-info dt {
+  flex-shrink: 0;
+  color: var(--fish-muted);
+}
+
+.fish-brain .fish-profile-info dd {
+  min-width: 0;
+  text-align: right;
+}
+
+.fish-brain .fish-mood[data-off] {
+  color: var(--fish-muted);
+}
+
+.fish-brain .fish-mood[data-mood='discouraged'],
+.fish-brain .fish-mood[data-mood='annoyed'] {
+  color: #8a4a2f;
+}
+
+.fish-brain .fish-mood[data-mood='happy'] {
+  color: var(--fish-success);
+}
+
+.fish-brain .fish-mood-reason small {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.fish-brain .fish-mood-reason {
+  margin: 0 0 2px;
+  padding: 2px 8px;
+  color: var(--fish-muted);
+  background: var(--fish-paper);
+  border-left: 3px solid var(--fish-line);
+  line-height: 1.8;
+}
+
+.fish-brain .fish-learning {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.fish-brain .fish-learning[data-tone='idle'] i {
+  background: var(--fish-success);
+}
+
+.fish-brain .fish-learning[data-tone='paused'] {
+  color: var(--fish-muted);
+}
+
+.fish-brain .fish-learning[data-tone='paused'] i {
+  background: #9aa6bb;
+}
+
+.fish-brain .fish-learning[data-tone='running'] i {
+  animation: fish-blink 0.8s steps(1, end) infinite;
+}
+
+.fish-brain .fish-learning[data-tone='failed'] {
+  color: var(--fish-danger);
+}
+
+.fish-brain .fish-learning[data-tone='failed'] i {
+  background: var(--fish-danger);
+}
+
+/* ---------- Counters ---------- */
+
+.fish-brain .fish-memory-counts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 14px 0 20px;
+}
+
+.fish-brain .fish-counter {
+  --kind: var(--fish-cognition);
+  --kind-soft: var(--fish-cognition-soft);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding: 8px 10px 6px;
+  color: var(--fish-ink);
+  text-align: left;
+  background: var(--fish-paper);
+  border: 2px solid var(--fish-line);
+  border-top: 4px solid var(--kind);
+  border-radius: 0;
+  transition:
+    transform var(--fish-step-fast),
+    box-shadow var(--fish-step-fast),
+    background-color var(--fish-step-fast);
+}
+
+.fish-brain .fish-counter:hover {
+  background: var(--kind-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 0 var(--fish-line);
+}
+
+.fish-brain .fish-counter:active {
+  transform: translateY(1px);
+  box-shadow: none;
+}
+
+.fish-brain .fish-counter-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--fish-muted);
+}
+
+.fish-brain .fish-counter-label .fish-icon {
+  color: var(--kind);
+}
+
+.fish-brain .fish-counter strong {
+  font: 400 24px/1.4 var(--fish-font);
+  animation: fish-pop var(--fish-step) both;
+}
+
+.fish-brain .fish-counter-experience,
+.fish-brain .fish-kind-border-experience,
+.fish-brain .fish-filter-experience {
+  --kind: var(--fish-experience);
+  --kind-soft: var(--fish-experience-soft);
+}
+
+.fish-brain .fish-counter-resonance,
+.fish-brain .fish-kind-border-resonance,
+.fish-brain .fish-filter-resonance {
+  --kind: var(--fish-resonance);
+  --kind-soft: var(--fish-resonance-soft);
+}
+
+.fish-brain .fish-counter-self,
+.fish-brain .fish-kind-border-self,
+.fish-brain .fish-filter-self {
+  --kind: var(--fish-self);
+  --kind-soft: var(--fish-self-soft);
+}
+
+/* Kind accents must out-rank the generic card/filter defaults above and below. */
+.fish-brain .fish-memory-card.fish-kind-border-experience,
+.fish-brain .fish-filters .fish-filter-experience {
+  --kind: var(--fish-experience);
+  --kind-soft: var(--fish-experience-soft);
+}
+
+.fish-brain .fish-memory-card.fish-kind-border-resonance,
+.fish-brain .fish-filters .fish-filter-resonance {
+  --kind: var(--fish-resonance);
+  --kind-soft: var(--fish-resonance-soft);
+}
+
+.fish-brain .fish-memory-card.fish-kind-border-self,
+.fish-brain .fish-filters .fish-filter-self {
+  --kind: var(--fish-self);
+  --kind-soft: var(--fish-self-soft);
+}
+
+/* ---------- Section headings ---------- */
+
+.fish-brain .fish-section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.fish-brain .fish-section-heading h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 2px;
+}
+
+.fish-brain .fish-section-heading h3::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--fish-blue);
+  box-shadow: 2px 2px 0 var(--fish-line);
+}
+
+.fish-brain .fish-heading-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ---------- Empty / skeleton ---------- */
+
+.fish-brain .fish-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 16px 14px;
+  background: #f8faff;
+  border: 2px dashed #c9d7ee;
+  text-align: center;
+}
+
+.fish-brain .fish-empty-icon {
+  color: #88a4d4;
+  animation: fish-float 2s steps(2, end) infinite;
+}
+
+.fish-brain .fish-empty p,
+.fish-brain .fish-muted {
+  color: var(--fish-muted);
+  line-height: 1.8;
+}
+
+.fish-brain .fish-skeleton {
+  display: grid;
+  gap: 12px;
+  padding: 14px;
+  border: 2px solid var(--fish-line);
+}
+
+.fish-brain .fish-skeleton i {
+  display: block;
+  height: 12px;
+  background: linear-gradient(90deg, var(--fish-soft) 0 40%, var(--fish-soft-strong) 40% 60%, var(--fish-soft) 60%);
+  background-size: 300% 100%;
+  animation: fish-shimmer 1.2s steps(6, end) infinite;
+}
+
+.fish-brain .fish-skeleton-row {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 16px;
+  align-items: center;
+}
+
+.fish-brain .fish-skeleton-row > div {
+  display: grid;
+  gap: 10px;
+}
+
+.fish-brain .fish-skeleton i.fish-skeleton-portrait {
+  height: 140px;
+}
+
+.fish-brain .fish-skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.fish-brain .fish-skeleton-grid i {
+  height: 52px;
+}
+
+/* ---------- Folds ---------- */
+
+.fish-brain .fish-fold {
+  margin-top: 14px;
+  background: var(--fish-paper);
+  border: 2px solid var(--fish-line);
+  transition: border-color var(--fish-step-fast);
+}
+
+.fish-brain .fish-fold:hover,
+.fish-brain .fish-fold[open] {
+  border-color: #9fb7e3;
+}
+
+.fish-brain .fish-fold > summary,
+.fish-brain .fish-source > summary {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.fish-brain .fish-fold > summary {
+  padding: 8px 12px;
+}
+
+.fish-brain .fish-fold > summary::-webkit-details-marker,
+.fish-brain .fish-source > summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Pixel caret: a 4-step rotation rather than a smooth spin. */
+.fish-brain .fish-fold > summary::before,
+.fish-brain .fish-source > summary::before {
+  content: '';
+  flex-shrink: 0;
+  width: 0;
+  height: 0;
+  border-top: 4px solid transparent;
+  border-bottom: 4px solid transparent;
+  border-left: 5px solid currentColor;
+  transition: transform var(--fish-step-fast);
+}
+
+.fish-brain .fish-fold[open] > summary::before,
+.fish-brain .fish-source[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+.fish-brain .fish-fold > summary:hover {
+  background: var(--fish-soft);
+}
+
+.fish-brain .fish-fold > summary > span:not(.fish-tag) {
+  color: var(--fish-muted);
+}
+
+.fish-brain .fish-fold[open] > summary {
+  border-bottom: 1px solid var(--fish-line);
+}
+
+.fish-brain .fish-fold > .fish-fold-body {
+  padding: 12px;
+}
+
+.fish-brain details[open] > .fish-fold-body {
+  animation: fish-reveal var(--fish-step) both;
+}
+
+/* ---------- Tags ---------- */
+
+.fish-brain .fish-tag,
+.fish-brain .fish-kind {
+  display: inline-block;
+  flex-shrink: 0;
+  padding: 0 5px;
+  color: #355b9b;
+  background: var(--fish-cognition-soft);
+  border: 1px solid #bacff1;
+  line-height: 1.8;
+}
+
+.fish-brain .fish-tag-dashed {
+  color: var(--fish-muted);
+  background: transparent;
+  border-style: dashed;
+}
+
+.fish-brain .fish-tag-alert {
+  color: var(--fish-danger);
+  background: var(--fish-danger-soft);
+  border-color: var(--fish-danger-line);
+}
+
+.fish-brain .fish-tag[data-ok] {
+  color: var(--fish-success);
+  background: var(--fish-success-soft);
+  border-color: #a9d7c2;
+}
+
+.fish-brain .fish-kind-experience {
+  color: var(--fish-experience);
+  background: var(--fish-experience-soft);
+  border-color: #b8d7e7;
+}
+
+.fish-brain .fish-kind-resonance {
+  color: var(--fish-resonance);
+  background: var(--fish-resonance-soft);
+  border-color: #cec2e8;
+}
+
+.fish-brain .fish-kind-self {
+  color: var(--fish-self);
+  background: var(--fish-self-soft);
+  border-color: #c5cde4;
+}
+
+.fish-brain .fish-new-badge {
+  padding: 0 4px;
+  color: white;
+  background: #e2574c;
+  line-height: 1.8;
+  animation: fish-blink 1s steps(1, end) 3;
+}
+
+/* ---------- Memory list ---------- */
+
+.fish-brain .fish-list-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  margin-bottom: 14px;
+}
+
+.fish-brain .fish-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.fish-brain .fish-filters button {
+  --kind: var(--fish-blue);
+  padding: 2px 8px;
+  color: var(--fish-muted);
+  background: var(--fish-paper);
+  border: 1px solid var(--fish-line);
+  border-radius: 0;
+  transition: background-color var(--fish-step-fast), color var(--fish-step-fast);
+}
+
+.fish-brain .fish-filters button:hover:not([aria-pressed='true']) {
+  color: var(--fish-ink);
+  border-color: var(--kind);
+}
+
+.fish-brain .fish-filters button[aria-pressed='true'] {
+  color: white;
+  background: var(--kind);
+  border-color: var(--kind);
+}
+
+.fish-brain .fish-filter-input {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1 1 180px;
+  max-width: 240px;
+  color: var(--fish-muted);
+}
+
+.fish-brain .fish-filter-input .fish-icon {
+  position: absolute;
+  left: 9px;
+  pointer-events: none;
+}
+
+.fish-brain .fish-filter-input input {
+  width: 100%;
+  padding-left: 28px !important;
+}
+
+.fish-brain .fish-memory-card {
+  --kind: var(--fish-cognition);
+  --kind-soft: var(--fish-cognition-soft);
+  margin-bottom: 10px;
+  padding: 10px 12px;
+  background: var(--fish-paper-tint);
+  border: 1px solid var(--fish-line);
+  border-left: 4px solid var(--kind);
+  overflow-wrap: anywhere;
+  animation: fish-card-in var(--fish-step) both;
+  animation-delay: calc(var(--fish-index, 0) * 40ms);
+  transition: box-shadow var(--fish-step-fast), transform var(--fish-step-fast);
+}
+
+.fish-brain .fish-memory-card:hover {
+  box-shadow: 3px 3px 0 var(--fish-line-soft);
+  transform: translate(-1px, -1px);
+}
+
+.fish-brain .fish-memory-card.is-new {
+  animation:
+    fish-card-in var(--fish-step) both,
+    fish-flash 1.6s steps(4, end) 2;
+}
+
+.fish-brain .fish-memory-card > p {
+  margin-top: 6px;
+  line-height: 1.8;
+}
+
+.fish-brain .fish-record-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  color: var(--fish-muted);
+}
+
+.fish-brain .fish-record-meta-end {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.fish-brain .fish-meter {
+  display: inline-flex;
+  gap: 1px;
+}
+
+.fish-brain .fish-meter i {
+  width: 4px;
+  height: 8px;
+  background: var(--fish-line-soft);
+}
+
+.fish-brain .fish-meter i[data-on='true'] {
+  background: var(--kind, var(--fish-blue));
+}
+
+.fish-brain .fish-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 6px;
+  color: var(--fish-muted);
+}
+
+.fish-brain .fish-tags > span {
+  padding: 0 5px;
+  background: var(--fish-soft);
+  line-height: 1.8;
+}
+
+.fish-brain .fish-tags > span[data-unverified] {
+  color: var(--fish-warn);
+  background: #fff6e6;
+}
+
+.fish-brain .fish-source {
+  margin-top: 6px;
+  color: var(--fish-muted);
+  overflow-wrap: anywhere;
+}
+
+.fish-brain .fish-source > summary {
+  width: fit-content;
+}
+
+.fish-brain .fish-source > summary:hover {
+  color: var(--fish-ink);
+}
+
+.fish-brain .fish-source blockquote {
+  margin: 6px 0 0;
+  padding: 6px 8px;
+  background: var(--fish-soft);
+  border-left: 2px solid var(--fish-line);
+}
+
+.fish-brain .fish-source blockquote small {
+  display: block;
+  margin-top: 2px;
+  font-size: 12px;
+  opacity: 0.85;
+}
+
+.fish-brain .fish-load-more {
+  width: 100%;
+  margin-top: 2px;
+  border-style: dashed;
+  box-shadow: none;
+}
+
+.fish-brain .fish-persona-section h4 {
+  margin: 4px 0 2px;
+  color: var(--fish-muted);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.fish-brain .fish-trait small {
+  margin-left: 8px;
+  color: var(--fish-muted);
+  font-size: 12px;
+}
+
+.fish-brain .fish-persona-progress {
+  margin-top: 8px;
+  padding-top: 6px;
+  border-top: 1px dashed var(--fish-line);
+}
+
+.fish-brain .fish-trait {
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--fish-line);
+}
+
+.fish-brain .fish-trait:last-child {
+  border-bottom: 0;
+}
+
+/* ---------- History timeline ---------- */
+
+.fish-brain .fish-timeline {
+  padding: 0;
+  list-style: none;
+}
+
+.fish-brain .fish-history {
+  position: relative;
+  padding: 8px 0 8px 18px;
+  border-left: 2px solid var(--fish-line);
+  overflow-wrap: anywhere;
+}
+
+.fish-brain .fish-history::before {
+  content: '';
+  position: absolute;
+  top: 14px;
+  left: -5px;
+  width: 8px;
+  height: 8px;
+  background: var(--fish-paper);
+  border: 2px solid var(--fish-blue);
+}
+
+.fish-brain .fish-history[data-action='ADD']::before {
+  background: var(--fish-success);
+  border-color: var(--fish-success);
+}
+
+.fish-brain .fish-history[data-action='DELETE']::before {
+  background: var(--fish-paper);
+  border-color: var(--fish-danger);
+}
+
+.fish-brain .fish-history[data-action='DELETE'] > p {
+  color: var(--fish-muted);
+  text-decoration: line-through;
+}
+
+.fish-brain .fish-history .fish-record-meta strong {
+  color: var(--fish-ink);
+  font-weight: 400;
+}
+
+.fish-brain .fish-history > p {
+  margin-top: 4px;
+}
+
+.fish-brain .fish-action-tag {
+  color: var(--fish-ink);
+}
+
+.fish-brain .fish-before {
+  color: var(--fish-muted);
+  text-decoration: line-through;
+}
+
+/* ---------- Toggles ---------- */
+
+.fish-brain .fish-toggle-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.fish-brain .fish-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px;
+  background: #f7faff;
+  border: 1px solid var(--fish-line);
+  cursor: pointer;
+  transition: border-color var(--fish-step-fast), background-color var(--fish-step-fast);
+}
+
+.fish-brain .fish-toggle-row:hover {
+  border-color: #8eaae0;
+}
+
+.fish-brain .fish-toggle-row[data-checked='false'] {
+  background: var(--fish-paper);
+}
+
+.fish-brain .fish-toggle-row[data-checked='false'] strong {
+  color: var(--fish-muted);
+}
+
+.fish-brain .fish-toggle-row strong {
+  display: block;
+  font-weight: 400;
+  transition: color var(--fish-step-fast);
+}
+
+.fish-brain .fish-toggle-row small {
+  display: block;
+  color: var(--fish-muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.fish-brain .fish-switch {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  width: 34px;
+  height: 22px;
+}
+
+.fish-brain .fish-switch input {
+  position: absolute;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.fish-brain .fish-switch-track {
+  width: 100%;
+  height: 100%;
+  background: #dce4f0;
+  border: 2px solid #9aabc6;
+  transition: background-color var(--fish-step-fast), border-color var(--fish-step-fast);
+}
+
+.fish-brain .fish-switch-track::after {
+  content: '';
+  display: block;
+  width: 12px;
+  height: 12px;
+  margin: 3px;
+  background: white;
+  box-shadow: 1px 1px 0 #9aabc6;
+  transition: transform var(--fish-step-fast);
+}
+
+.fish-brain .fish-switch input:checked + .fish-switch-track {
+  background: var(--fish-blue);
+  border-color: #2c4b87;
+}
+
+.fish-brain .fish-switch input:checked + .fish-switch-track::after {
+  transform: translateX(12px);
+  box-shadow: 1px 1px 0 #22479a;
+}
+
+.fish-brain .fish-switch input:focus-visible + .fish-switch-track {
+  outline: 3px solid var(--fish-focus);
+  outline-offset: 2px;
+}
+
+.fish-brain .fish-switch input:disabled + .fish-switch-track {
+  opacity: 0.6;
+}
+
+.fish-brain .fish-toggle-row[aria-busy='true'] .fish-switch-track::after {
+  animation: fish-blink 0.5s steps(1, end) infinite;
+}
+
+.fish-brain .fish-toggle-row:has(input:disabled) {
+  cursor: progress;
+}
+
+.fish-brain .fish-cost-note {
+  margin-top: 10px;
+}
+
+/* ---------- Forms ---------- */
+
+.fish-brain .fish-form {
+  display: grid;
+  gap: 10px;
+}
+
+.fish-brain .fish-form label {
+  display: grid;
+  gap: 4px;
+}
+
+.fish-brain .fish-form > button {
+  justify-self: start;
+}
+
+.fish-brain .fish-search-form {
+  grid-template-columns: minmax(120px, 180px) minmax(0, 1fr) auto;
+  align-items: end;
+}
+
+.fish-brain .fish-index-form {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--fish-line);
+}
+
+.fish-brain .fish-button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.fish-brain .fish-retrieval-settings {
+  margin-top: 22px;
+}
+
+.fish-brain .fish-mode-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 0 0 10px;
+  padding: 0;
+  border: 0;
+}
+
+.fish-brain .fish-mode-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--fish-paper);
+  border: 2px solid var(--fish-line);
+  cursor: pointer;
+  transition: border-color var(--fish-step-fast), background-color var(--fish-step-fast);
+}
+
+.fish-brain .fish-mode-option:hover {
+  border-color: #8eaae0;
+}
+
+.fish-brain .fish-mode-option:has(input:checked) {
+  background: var(--fish-soft);
+  border-color: var(--fish-blue);
+  box-shadow: 3px 3px 0 var(--fish-line);
+}
+
+.fish-brain .fish-mode-option input[type='radio'] {
+  flex-shrink: 0;
+  min-height: 0;
+  margin: 6px 0 0;
+  padding: 0;
+  accent-color: var(--fish-blue);
+}
+
+.fish-brain .fish-mode-option strong {
+  display: block;
+  font-weight: 400;
+}
+
+.fish-brain .fish-mode-option small {
+  margin-left: 5px;
+  padding: 0 4px;
+  color: white;
+  background: var(--fish-blue);
+  font-size: 12px;
+}
+
+.fish-brain .fish-mode-option > span > span {
+  display: block;
+  margin-top: 2px;
+  color: var(--fish-muted);
+  line-height: 1.8;
+}
+
+.fish-brain .fish-screen-reader {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.fish-brain .fish-session {
+  margin-bottom: 10px;
+}
+
+.fish-brain .fish-job {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0;
+  color: var(--fish-muted);
+}
+
+.fish-brain .fish-job p {
+  width: 100%;
+}
+
+.fish-brain .fish-search-result {
+  margin-top: 14px;
+}
+
+.fish-brain .fish-search-result pre {
+  margin: 6px 0 0;
+  padding: 10px;
+  color: var(--fish-ink);
+  background: var(--fish-soft);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.fish-brain .fish-recall-why {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 6px;
+  margin-top: 6px;
+  color: var(--fish-muted);
+}
+
+.fish-brain .fish-recall-why > span {
+  padding: 0 5px;
+  background: var(--fish-soft);
+  line-height: 1.8;
+}
+
+.fish-brain .fish-recall-why > .fish-score {
+  color: white;
+  background: var(--kind, var(--fish-blue));
+}
+
+.fish-brain .fish-connection-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.fish-brain .fish-connection-result {
+  margin: 0;
+  padding: 6px 10px;
+  overflow-wrap: anywhere;
+  color: var(--fish-danger);
+  background: var(--fish-danger-soft);
+  border-left: 3px solid var(--fish-danger);
+  animation: fish-reveal var(--fish-step) both;
+}
+
+.fish-brain .fish-connection-result[data-success='true'] {
+  color: var(--fish-success);
+  background: var(--fish-success-soft);
+  border-left-color: var(--fish-success);
+}
+
+.fish-brain .fish-error {
+  margin: 10px 0;
+  padding: 8px 10px;
+  color: #994330;
+  background: var(--fish-danger-soft);
+  border: 1px solid var(--fish-danger-line);
+  overflow-wrap: anywhere;
+}
+
+.fish-brain .fish-error-banner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0 0 12px;
+  border-left: 4px solid var(--fish-danger);
+  animation: fish-shake 300ms steps(3, end) 1;
+}
+
+/* ---------- Footer & toast ---------- */
+
+.fish-brain .fish-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 4px 0;
+  color: var(--fish-muted);
+}
+
+.fish-brain .fish-footer > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.fish-brain .fish-footer > span[data-active] i {
+  animation: fish-blink 0.8s steps(1, end) infinite;
+}
+
+.fish-brain .fish-toast-region {
+  position: sticky;
+  bottom: 16px;
+  z-index: 5;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 0;
+  pointer-events: none;
+}
+
+.fish-brain .fish-toast {
+  flex-shrink: 0;
+  white-space: nowrap;
+  line-height: 2;
+  padding: 4px 14px;
+  color: white;
+  background: var(--fish-ink);
+  border: 2px solid var(--fish-ink-strong);
+  box-shadow: 3px 3px 0 var(--fish-line);
+  animation:
+    fish-toast-in var(--fish-step) both,
+    fish-toast-out var(--fish-step) 2.3s forwards;
+}
+
+.fish-brain .fish-toast[data-tone='success']::before {
+  content: '✓ ';
+}
+
+/* ---------- Keyframes (all stepped for the pixel look) ---------- */
+
+@keyframes fish-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@keyframes fish-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+@keyframes fish-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes fish-pop {
+  0% {
+    transform: scale(0.6);
+  }
+  60% {
+    transform: scale(1.2);
+  }
+}
+
+@keyframes fish-flash {
+  50% {
+    background: #fff7d6;
+    border-color: #f0c45a;
+  }
+}
+
+@keyframes fish-blink {
+  50% {
+    opacity: 0.25;
+  }
+}
+
+@keyframes fish-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fish-hop {
+  50% {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes fish-float {
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+@keyframes fish-wiggle {
+  25% {
+    transform: rotate(-10deg);
+  }
+  75% {
+    transform: rotate(10deg);
+  }
+}
+
+/* Two-frame idle "breath": the portrait sinks 1px every other beat. */
+@keyframes fish-breathe {
+  50% {
+    transform: translateY(1px) scaleY(0.995);
+  }
+}
+
+@keyframes fish-jump {
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes fish-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -50% 0;
+  }
+}
+
+@keyframes fish-shake {
+  33% {
+    transform: translateX(-3px);
+  }
+  66% {
+    transform: translateX(3px);
+  }
+}
+
+@keyframes fish-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes fish-toast-out {
+  to {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fish-brain *,
+  .fish-brain *::before,
+  .fish-brain *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
+  }
+
+  .fish-brain .fish-portrait {
+    animation: none !important;
+  }
+}
+
+/* ---------- Narrow ---------- */
+
+@container (max-width: 520px) {
+  .fish-brain .fish-mode-options {
+    grid-template-columns: 1fr;
+  }
+
+  .fish-brain .fish-search-form {
+    grid-template-columns: 1fr;
+  }
+
+  .fish-brain .fish-search-form > button {
+    justify-self: start;
+  }
+
+  .fish-brain .fish-filter-input {
+    max-width: none;
+  }
+}
+
+@container (max-width: 400px) {
+  .fish-brain .fish-panel {
+    padding: 12px;
+  }
+
+  .fish-brain .fish-profile {
+    grid-template-columns: 104px minmax(0, 1fr);
+    gap: 10px;
+    padding: 8px;
+  }
+
+  .fish-brain .fish-profile-info {
+    padding-right: 4px;
+  }
+
+  .fish-brain .fish-profile-info dl > div {
+    gap: 4px;
+  }
+
+  .fish-brain .fish-profile-divider {
+    margin: 8px 0 4px;
+  }
+
+  .fish-brain .fish-memory-counts {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+
+  .fish-brain .fish-toggle-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .fish-brain .fish-persona-select select {
+    max-width: 200px;
+  }
+
+  .fish-brain .fish-tabs button {
+    letter-spacing: 1px;
+  }
+
+  .fish-brain .fish-portrait-caption {
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+
+  .fish-brain .fish-brand h2 {
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+}
