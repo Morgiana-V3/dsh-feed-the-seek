@@ -118,7 +118,7 @@ export function createDashboard(engine: Engine, options: { demo: boolean; port: 
         '/native.css': ['native.css', 'text/css'],
         '/assets/fonts/zpix-v3.3.0.woff2': ['assets/fonts/zpix-v3.3.0.woff2', 'font/woff2'],
         '/assets/character-pixel.png': ['assets/portrait-calm.png', 'image/png'],
-        '/assets/plugin-icon-v5.png': ['assets/plugin-icon-v5.png', 'image/png'],
+        '/assets/plugin-icon-v6.png': ['assets/plugin-icon-v6.png', 'image/png'],
         // Display-size portraits, one per mood (generated from the 832×1024 originals).
         ...Object.fromEntries(['calm','happy','discouraged','annoyed'].map(mood => [`/assets/portrait-${mood}.png`, [`assets/portrait-${mood}.png`, 'image/png'] as [string,string]])),
         '/assets/ARTWORK.md':['assets/ARTWORK.md','text/plain'] };

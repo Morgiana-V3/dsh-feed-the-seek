@@ -20,12 +20,14 @@
     "public/app.js",
     "public/style.css",
     "public/assets/portrait-*.png",
-    "public/assets/plugin-icon-v5.png",
+    "public/assets/plugin-icon-v6.png",
     "public/assets/fonts/zpix-v3.3.0.woff2",
     "public/assets/fonts/ZPIX-UPSTREAM-README.md",
     "public/assets/ARTWORK.md",
     "cordis.patch.yml",
-    "README.md"
+    "README.md",
+    "docs/**/*.md",
+    "docs/screenshots/*.png"
   ],
   "dsh": {
     "bundle": {
@@ -68,7 +70,15 @@
     "react-dom": "^19.3.1",
     "typescript": "^5.9.3"
   },
-  "icon": "public/assets/plugin-icon-v5.png",
+  "icon": "public/assets/plugin-icon-v6.png",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Morgiana-V3/dsh-feed-the-seek.git"
+  },
+  "homepage": "https://github.com/Morgiana-V3/dsh-feed-the-seek#readme",
+  "bugs": {
+    "url": "https://github.com/Morgiana-V3/dsh-feed-the-seek/issues"
+  },
   "keywords": [
     "dsh",
     "dsh-plugin",

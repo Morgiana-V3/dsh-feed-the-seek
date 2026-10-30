@@ -1,5 +1,11 @@
 node_modules/
-dist/
+# Git URL installs need the prebuilt runtime; exclude tests and source maps.
+dist/*
+!dist/src/
+dist/src/**
+!dist/src/**/
+!dist/src/**/*.js
+!dist/src/**/*.d.ts
 .yuwen/
 work/
 .env

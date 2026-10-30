@@ -88,7 +88,7 @@ export function SettingsSection() {
       <header className="fish-header">
         <div className="fish-brand">
           <span className="fish-logo" aria-hidden="true">
-            <img src="/fish-brain/assets/plugin-icon-v5.png" width={32} height={32} alt="" style={{ imageRendering: 'pixelated' }} />
+            <img src="/fish-brain/assets/plugin-icon-v6.png" width={32} height={32} alt="" />
           </span>
           <h2>大肥鱼饲养手册</h2>
           <span className="fish-version">v{__PLUGIN_VERSION__}</span>

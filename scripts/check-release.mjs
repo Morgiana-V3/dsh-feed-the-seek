@@ -14,7 +14,8 @@ for (const required of [
   'dist/src/dsh.js', 'public/client.js', 'public/native.css',
   'public/assets/portrait-calm.png', 'public/assets/portrait-happy.png',
   'public/assets/portrait-discouraged.png', 'public/assets/portrait-annoyed.png',
-  'public/assets/fonts/zpix-v3.3.0.woff2', manifest.icon, 'cordis.patch.yml',
+  'public/assets/fonts/zpix-v3.3.0.woff2', 'public/assets/fonts/ZPIX-UPSTREAM-README.md',
+  manifest.icon, 'cordis.patch.yml',
 ]) {
   if (!packed.has(required)) {
     throw new Error(`Missing release file: ${required}`)
@@ -43,6 +44,16 @@ try {
   }).split('\0').filter(Boolean)
 } catch {
   // Archives without Git can still have their complete package content checked.
+}
+if (candidates.length) {
+  const gitFiles = new Set(candidates)
+  for (const filename of packed) {
+    const runtimeFile = filename.startsWith('dist/src/') ||
+      filename === 'public/client.js' || filename === manifest.icon
+    if (runtimeFile && !gitFiles.has(filename)) {
+      throw new Error(`Git URL installation would miss this runtime file: ${filename}`)
+    }
+  }
 }
 const textFile = /\.(?:[cm]?js|tsx?|json|jsonl|ya?ml|md|txt|html|css|py|ps1)$/i
 const signatures = [
