@@ -1,6 +1,7 @@
 node_modules/
 dist/
 outputs/
+workflows/
 .feed-the-seek/
 public/client.js
 package-lock.json

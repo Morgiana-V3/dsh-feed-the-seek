@@ -372,7 +372,7 @@ export function createDashboard(engine, options) {
                 '/assets/fonts/zpix-v3.3.0.woff2': ['assets/fonts/zpix-v3.3.0.woff2', 'font/woff2'],
                 '/assets/character-pixel.png': ['assets/portrait-calm.png', 'image/png'],
                 '/assets/plugin-icon-v6.png': ['assets/plugin-icon-v6.png', 'image/png'],
-                // Display-size portraits, one per mood (generated from the 832×1024 originals).
+                // Looping portraits plus static alternatives for reduced motion and legacy clients.
                 ...Object.fromEntries([
                     'calm',
                     'happy',
@@ -382,10 +382,10 @@ export function createDashboard(engine, options) {
                     'relieved',
                     'hopeful',
                     'shy',
-                ].map((mood) => [
-                    `/assets/portrait-${mood}.png`,
-                    [`assets/portrait-${mood}.png`, 'image/png'],
-                ])),
+                ].flatMap((mood) => ['png', 'webp'].map((format) => [
+                    `/assets/portrait-${mood}.${format}`,
+                    [`assets/portrait-${mood}.${format}`, `image/${format}`],
+                ]))),
                 '/assets/ARTWORK.md': ['assets/ARTWORK.md', 'text/plain'],
             };
             const asset = assets[url.pathname];
@@ -394,8 +394,8 @@ export function createDashboard(engine, options) {
                 response.end('Not found');
                 return;
             }
-            // Images and the font never change under the same file name; caching them avoids
-            // re-downloading ~2 MB each time the settings page opens. Code stays uncached.
+            // Cache artwork and fonts between visits; clients version URLs when artwork changes.
+            // Code stays uncached.
             if (/^(image|font)\//.test(asset[1])) {
                 response.setHeader('Cache-Control', 'public, max-age=604800');
             }

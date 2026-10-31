@@ -24,6 +24,9 @@ const requiredFiles = [
   'public/assets/portrait-relieved.png',
   'public/assets/portrait-hopeful.png',
   'public/assets/portrait-shy.png',
+  ...['calm', 'happy', 'hopeful', 'concerned', 'discouraged', 'annoyed', 'shy', 'relieved'].map(
+    (mood) => `public/assets/portrait-${mood}.webp`,
+  ),
   'public/assets/fonts/zpix-v3.3.0.woff2',
   'public/assets/fonts/ZPIX-UPSTREAM-README.md',
   manifest.icon,
@@ -35,7 +38,7 @@ for (const required of requiredFiles) {
   }
 }
 const privatePath =
-  /(?:^|\/)(?:outputs|work|\.feed-the-seek|\.yuwen|\.reference|\.claude|\.codex|node_modules)(?:\/|$)|\.(?:sqlite(?:-wal|-shm)?|db|log|tgz|map|pem|key|p12|pfx)$|(?:^|\/)\.env(?:\.|$)/i
+  /(?:^|\/)(?:outputs|work|workflows|__pycache__|\.feed-the-seek|\.yuwen|\.reference|\.claude|\.codex|node_modules)(?:\/|$)|\.(?:sqlite(?:-wal|-shm)?|db|log|tgz|map|pyc|pyo|pem|key|p12|pfx)$|(?:^|\/)\.env(?:\.|$)/i
 const developmentPath = /^(?:tests|scripts|src)\/|^dist\/tests\//
 for (const filename of packed) {
   if (privatePath.test(filename) || developmentPath.test(filename)) {
@@ -53,6 +56,7 @@ if (!client.includes(JSON.stringify(manifest.name))) {
 
 // Scan candidate source files too: a clean tarball alone does not make a Git upload safe.
 let candidates = []
+let gitCandidatesChecked = false
 try {
   candidates = execSync('git ls-files --cached --others --exclude-standard -z', {
     encoding: 'utf8',
@@ -65,8 +69,10 @@ try {
     execSync('git ls-files --deleted -z', { encoding: 'utf8', windowsHide: true }).split('\0'),
   )
   candidates = candidates.filter((filename) => !deleted.has(filename))
+  gitCandidatesChecked = true
 } catch {
   // Archives without Git can still have their complete package content checked.
+  console.warn('Git candidate scan unavailable; only the npm package content is checked.')
 }
 if (candidates.length) {
   const gitFiles = new Set(candidates)
@@ -79,7 +85,7 @@ if (candidates.length) {
     if (privatePath.test(filename)) {
       throw new Error(`Private file in Git candidates: ${filename}`)
     }
-    if (/^public\/assets\/.*\.png$/.test(filename) && !requiredFiles.includes(filename)) {
+    if (/^public\/assets\/.*\.(png|webp)$/.test(filename) && !requiredFiles.includes(filename)) {
       throw new Error(`Unlisted artwork in Git candidates: ${filename}`)
     }
     if (/^dist\/src\/.*\.(?:js|d\.ts)$/.test(filename)) {
@@ -133,6 +139,34 @@ for (const filename of new Set([...candidates, ...packed])) {
     }
     scannedImages++
   }
+  if (filename.endsWith('.webp')) {
+    const webp = await readFile(absolute)
+    if (
+      webp.length < 12 ||
+      webp.toString('ascii', 0, 4) !== 'RIFF' ||
+      webp.toString('ascii', 8, 12) !== 'WEBP' ||
+      webp.readUInt32LE(4) + 8 !== webp.length
+    ) {
+      throw new Error(`Invalid WebP: ${filename}`)
+    }
+    let offset = 12
+    while (offset + 8 <= webp.length) {
+      const length = webp.readUInt32LE(offset + 4)
+      const chunk = webp.toString('ascii', offset, offset + 4)
+      const next = offset + 8 + length + (length % 2)
+      if (next > webp.length) {
+        throw new Error(`Truncated WebP: ${filename}`)
+      }
+      if (['EXIF', 'XMP '].includes(chunk)) {
+        throw new Error(`WebP contains generation-capable metadata (${chunk}): ${filename}`)
+      }
+      offset = next
+    }
+    if (offset !== webp.length) {
+      throw new Error(`Invalid WebP chunk boundary: ${filename}`)
+    }
+    scannedImages++
+  }
   if (!textFile.test(filename)) {
     continue
   }
@@ -151,6 +185,7 @@ console.log(
     compressedBytes: bundle.size,
     scannedTextFiles: scanned,
     scannedImages,
+    gitCandidatesChecked,
     iconBytes: icon.length,
     privateFileChecks: 'passed',
   }),

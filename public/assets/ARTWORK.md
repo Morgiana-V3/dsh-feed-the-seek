@@ -12,4 +12,6 @@
 - `portrait-hopeful.png`、`portrait-relieved.png`：期待和释然姿态，分别采用举拳打气、双手轻合并安心微笑的动作。由 image_gen 原稿经 NovelAI `nai-diffusion-4-5-full` 以 0.4 强度重绘，提示词引导为 4、噪声为 0。全部立绘显示尺寸为 296×364，八种当前情绪各有对应立绘，旧状态 `steady` 沿用平静配图。
 - 状态配图的 NovelAI 风格提示包含 `artist:ahiru_tokotoko, year 2025, pixel art, limited color palette`。这是生成时的风格标签，不代表该画师创作、授权或认可了本插件。
 
+- `portrait-*.webp`：八种情绪的循环立绘。使用对应静态原图，经本地 Qwen Image 2.1 保守精修，再由 MiniMax H3 首尾帧图生视频，裁尾并进行双向光流接缝处理。显示尺寸 296×364，每条 93 帧，约 3.8 秒，无限循环；分发文件已移除生成工作流元数据。默认显示动图，系统启用减少动态效果时显示原 PNG。
+
 字体采用独立授权，参见 `fonts/ZPIX-UPSTREAM-README.md`。

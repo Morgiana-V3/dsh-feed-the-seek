@@ -170,9 +170,11 @@ function overview() {
         esc(current.reason) +
         '</p><p>' +
         esc(current.behavior) +
-        '</p></div><img class="mood-character" src="/assets/portrait-' +
+        '</p></div><picture><source media="(prefers-reduced-motion: reduce)" srcset="/assets/portrait-' +
         esc(state.mood?.asset || 'calm') +
-        '.png?v=4" width="150" height="150" alt="蓝发鲸鱼娘女仆的当前心情"></section>'
+        '.png?v=5"><img class="mood-character" src="/assets/portrait-' +
+        esc(state.mood?.asset || 'calm') +
+        '.webp?v=5" width="150" height="150" alt="蓝发鲸鱼娘女仆的当前心情"></picture></section>'
       : '') +
     '<section class="settings-card"><h2>稳定倾向</h2>' +
     (state.traits.length

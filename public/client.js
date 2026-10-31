@@ -20674,20 +20674,25 @@ function OverviewPanel({
       className: "fish-portrait-frame",
       "data-mood": mood?.asset || "calm"
     },
-    portraitMoods.map((asset) => /* @__PURE__ */ React5.createElement(
+    portraitMoods.map((asset) => /* @__PURE__ */ React5.createElement("picture", { key: asset }, /* @__PURE__ */ React5.createElement(
+      "source",
+      {
+        media: "(prefers-reduced-motion: reduce)",
+        srcSet: `/fish-brain/assets/portrait-${asset}.png`
+      }
+    ), /* @__PURE__ */ React5.createElement(
       "img",
       {
-        key: asset,
         className: "fish-portrait",
         "data-active": asset === (mood?.asset || "calm") || void 0,
-        src: `/fish-brain/assets/portrait-${asset}.png${asset === "relieved" || asset === "hopeful" ? "?v=4" : ""}`,
+        src: `/fish-brain/assets/portrait-${asset}.${asset === (mood?.asset || "calm") ? "webp" : "png"}?v=5`,
         alt: asset === (mood?.asset || "calm") ? portraitAlt[asset] : "",
         "aria-hidden": asset === (mood?.asset || "calm") ? void 0 : true,
         width: "296",
         height: "364",
         decoding: "async"
       }
-    ))
+    )))
   ), /* @__PURE__ */ React5.createElement("div", { className: "fish-profile-info" }, /* @__PURE__ */ React5.createElement("div", { className: "fish-eyebrow" }, state.scope.persona === state.activePersona ? "\u6B63\u5728\u966A\u4F60" : "\u4EE5\u524D\u7684\u5979"), /* @__PURE__ */ React5.createElement("h2", null, hasOwnName ? persona.name : naming.name || displayName(void 0)), /* @__PURE__ */ React5.createElement(
     "span",
     {
@@ -21573,7 +21578,7 @@ function SettingsSection() {
       "link",
       {
         rel: "stylesheet",
-        href: `/fish-brain/native.css?v=${"95079dba2e91"}`
+        href: `/fish-brain/native.css?v=${"b5a517787c42"}`
       }
     ),
     /* @__PURE__ */ React9.createElement("header", { className: "fish-header" }, /* @__PURE__ */ React9.createElement("div", { className: "fish-brand" }, /* @__PURE__ */ React9.createElement(

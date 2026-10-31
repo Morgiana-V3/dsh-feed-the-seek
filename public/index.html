@@ -137,13 +137,19 @@
         </button>
         <div id="recall-result">
           <div class="empty-recall">
-            <img
-              class="idle-character"
-              src="/assets/portrait-calm.png"
-              alt="抱着饭碗的蓝色鲸鱼娘插画"
-              width="136"
-              height="136"
-            />
+            <picture>
+              <source
+                media="(prefers-reduced-motion: reduce)"
+                srcset="/assets/portrait-calm.png?v=5"
+              />
+              <img
+                class="idle-character"
+                src="/assets/portrait-calm.webp?v=5"
+                alt="抱着饭碗的蓝色鲸鱼娘插画"
+                width="136"
+                height="136"
+              />
+            </picture>
             <p>暂无检索结果</p>
           </div>
         </div>

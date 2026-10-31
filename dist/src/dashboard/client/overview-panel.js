@@ -43,7 +43,9 @@ export function OverviewPanel({ state, isBusy, newMemoryIds, onOpenMemories, onR
     }
     return (React.createElement("div", null,
         React.createElement("div", { className: "fish-profile" },
-            React.createElement("div", { className: "fish-portrait-frame", "data-mood": mood?.asset || 'calm' }, portraitMoods.map((asset) => (React.createElement("img", { key: asset, className: "fish-portrait", "data-active": asset === (mood?.asset || 'calm') || undefined, src: `/fish-brain/assets/portrait-${asset}.png${asset === 'relieved' || asset === 'hopeful' ? '?v=4' : ''}`, alt: asset === (mood?.asset || 'calm') ? portraitAlt[asset] : '', "aria-hidden": asset === (mood?.asset || 'calm') ? undefined : true, width: "296", height: "364", decoding: "async" })))),
+            React.createElement("div", { className: "fish-portrait-frame", "data-mood": mood?.asset || 'calm' }, portraitMoods.map((asset) => (React.createElement("picture", { key: asset },
+                React.createElement("source", { media: "(prefers-reduced-motion: reduce)", srcSet: `/fish-brain/assets/portrait-${asset}.png` }),
+                React.createElement("img", { className: "fish-portrait", "data-active": asset === (mood?.asset || 'calm') || undefined, src: `/fish-brain/assets/portrait-${asset}.${asset === (mood?.asset || 'calm') ? 'webp' : 'png'}?v=5`, alt: asset === (mood?.asset || 'calm') ? portraitAlt[asset] : '', "aria-hidden": asset === (mood?.asset || 'calm') ? undefined : true, width: "296", height: "364", decoding: "async" }))))),
             React.createElement("div", { className: "fish-profile-info" },
                 React.createElement("div", { className: "fish-eyebrow" }, state.scope.persona === state.activePersona ? '正在陪你' : '以前的她'),
                 React.createElement("h2", null, hasOwnName ? persona.name : naming.name || displayName(undefined)),

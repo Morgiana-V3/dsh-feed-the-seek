@@ -81,6 +81,15 @@ try {
   assert.equal(await readFile(patchPath, 'utf8'), retainedPatch)
   const after = JSON.parse(await readFile(path.join(profile, 'package.json'), 'utf8'))
   assert.deepEqual(after.dsh.profile.bundles.slice(0, 2), manifest.dsh.profile.bundles.slice(0, 2))
+  await install('--development')
+  const orphaned = JSON.parse(await readFile(path.join(profile, 'package.json'), 'utf8'))
+  delete orphaned.dependencies['dsh-feed-the-seek']
+  await writeFile(path.join(profile, 'package.json'), JSON.stringify(orphaned, null, 2))
+  assert.equal(await realpath(linkedPackage), path.resolve('.'))
+  await install('--release')
+  assert.notEqual(await realpath(linkedPackage), path.resolve('.'))
+  assert.equal(await readFile(patchPath, 'utf8'), retainedPatch)
+  assert.equal(JSON.parse(await readFile('package.json', 'utf8')).name, 'dsh-feed-the-seek')
   const report = {
     isolatedHome: home,
     linked: true,
@@ -88,6 +97,7 @@ try {
     restoredPackage: true,
     unrelatedSettingsRetained: true,
     legacyPackageMigrated: true,
+    orphanedDevelopmentLinkRecovered: true,
   }
   await writeFile('outputs/development-profile-check.json', JSON.stringify(report, null, 2))
   console.log(JSON.stringify(report))

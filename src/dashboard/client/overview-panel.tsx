@@ -72,20 +72,24 @@ export function OverviewPanel({
           className="fish-portrait-frame"
           data-mood={mood?.asset || 'calm'}
         >
-          {/* All portraits are present; only the current mood is shown, so a mood change
-              switches instantly without reloading or flashing. */}
+          {/* Keep inactive portraits static so only the visible mood decodes an animation. */}
           {portraitMoods.map((asset) => (
-            <img
-              key={asset}
-              className="fish-portrait"
-              data-active={asset === (mood?.asset || 'calm') || undefined}
-              src={`/fish-brain/assets/portrait-${asset}.png${asset === 'relieved' || asset === 'hopeful' ? '?v=4' : ''}`}
-              alt={asset === (mood?.asset || 'calm') ? portraitAlt[asset] : ''}
-              aria-hidden={asset === (mood?.asset || 'calm') ? undefined : true}
-              width="296"
-              height="364"
-              decoding="async"
-            />
+            <picture key={asset}>
+              <source
+                media="(prefers-reduced-motion: reduce)"
+                srcSet={`/fish-brain/assets/portrait-${asset}.png`}
+              />
+              <img
+                className="fish-portrait"
+                data-active={asset === (mood?.asset || 'calm') || undefined}
+                src={`/fish-brain/assets/portrait-${asset}.${asset === (mood?.asset || 'calm') ? 'webp' : 'png'}?v=5`}
+                alt={asset === (mood?.asset || 'calm') ? portraitAlt[asset] : ''}
+                aria-hidden={asset === (mood?.asset || 'calm') ? undefined : true}
+                width="296"
+                height="364"
+                decoding="async"
+              />
+            </picture>
           ))}
         </div>
         <div className="fish-profile-info">

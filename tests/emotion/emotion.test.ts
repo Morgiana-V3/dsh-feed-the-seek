@@ -328,6 +328,33 @@ test('every current mood serves its own portrait and legacy steady shares calm',
     assert.equal(png.subarray(1, 4).toString(), 'PNG')
     assert.equal(png.readUInt32BE(16), 296)
     assert.equal(png.readUInt32BE(20), 364)
+    const animated = await fetch(`${origin}/assets/portrait-${asset}.webp?v=5`)
+    assert.equal(animated.status, 200)
+    assert.equal(animated.headers.get('content-type'), 'image/webp')
+    const webp = Buffer.from(await animated.arrayBuffer())
+    assert.equal(webp.toString('ascii', 0, 4), 'RIFF')
+    assert.equal(webp.toString('ascii', 8, 12), 'WEBP')
+    assert.equal(webp.toString('ascii', 12, 16), 'VP8X')
+    assert.ok(webp[20] & 2, 'portrait must be animated')
+    assert.equal(webp.readUIntLE(24, 3) + 1, 296)
+    assert.equal(webp.readUIntLE(27, 3) + 1, 364)
+    let frameCount = 0
+    let loopCount: number | undefined
+    for (let offset = 12; offset + 8 <= webp.length;) {
+      const chunk = webp.toString('ascii', offset, offset + 4)
+      const size = webp.readUInt32LE(offset + 4)
+      assert.ok(offset + 8 + size <= webp.length)
+      assert.ok(!['EXIF', 'XMP '].includes(chunk), 'do not ship generation metadata')
+      if (chunk === 'ANIM') {
+        loopCount = webp.readUInt16LE(offset + 12)
+      }
+      if (chunk === 'ANMF') {
+        frameCount++
+      }
+      offset += 8 + size + (size % 2)
+    }
+    assert.equal(loopCount, 0, 'portrait must repeat indefinitely')
+    assert.ok(frameCount > 1)
   }
   assert.equal(moodLabels.steady, '平静')
   assert.equal(moodAsset(undefined), 'calm')

@@ -20,6 +20,7 @@
     "public/app.js",
     "public/style.css",
     "public/assets/portrait-*.png",
+    "public/assets/portrait-*.webp",
     "public/assets/plugin-icon-v6.png",
     "public/assets/fonts/zpix-v3.3.0.woff2",
     "public/assets/fonts/ZPIX-UPSTREAM-README.md",

@@ -414,8 +414,6 @@
   object-fit: cover;
   object-position: center 30%;
   image-rendering: pixelated;
-  transform-origin: 50% 100%;
-  animation: fish-breathe 2.4s steps(1, end) infinite;
 }
 
 /* Portraits are stacked; the active mood fades in with a stepped transition. */
@@ -428,10 +426,6 @@
 
 .fish-brain .fish-portrait-frame .fish-portrait[data-active] {
   opacity: 1;
-}
-
-.fish-brain .fish-portrait-frame:hover .fish-portrait {
-  animation: fish-jump 420ms steps(3, end) 1;
 }
 
 .fish-brain .fish-portrait-caption {
@@ -1728,19 +1722,6 @@
   }
   75% {
     transform: rotate(10deg);
-  }
-}
-
-/* Two-frame idle "breath": the portrait sinks 1px every other beat. */
-@keyframes fish-breathe {
-  50% {
-    transform: translateY(1px) scaleY(0.995);
-  }
-}
-
-@keyframes fish-jump {
-  50% {
-    transform: translateY(-6px);
   }
 }
 

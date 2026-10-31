@@ -75,6 +75,26 @@ const { spawn } = require('node:child_process')
         }
       }
       const before = JSON.parse(originals.get('package.json').toString())
+      const installedPath = path.join(profile, 'node_modules', manifest.name)
+      const installedStat = await fs.lstat(installedPath).catch((error) => {
+        if (error.code !== 'ENOENT') {
+          throw error
+        }
+        return undefined
+      })
+      const detachedDevelopmentLink =
+        !development &&
+        installedStat?.isSymbolicLink() &&
+        (await fs.realpath(installedPath)) === project
+      if (detachedDevelopmentLink) {
+        await fs.writeFile(
+          path.join(backup, 'development-link.json'),
+          JSON.stringify({ path: installedPath, target: project }, null, 2),
+        )
+        // Unlink only the junction, never recursively remove its source workspace.
+        // Failed UI installs can leave this link even after removing its manifest entry.
+        await fs.unlink(installedPath)
+      }
       // Retire the former package without changing the persistent plugin identity.
       const legacyPackageName = 'dsh-fish-brain-patch'
       const pnpm = path.join(
@@ -135,9 +155,19 @@ const { spawn } = require('node:child_process')
             await writeFileAtomic(path.join(profile, name), originals.get(name), { mode: 0o600 })
           }
         }
+        if (detachedDevelopmentLink) {
+          const remaining = await fs.lstat(installedPath).catch((error) => {
+            if (error.code !== 'ENOENT') {
+              throw error
+            }
+            return undefined
+          })
+          if (!remaining) {
+            await fs.symlink(project, installedPath, 'junction')
+          }
+        }
         throw Error('Package install failed; manifest and lockfile restored, backup: ' + backup)
       }
-      const installedPath = path.join(profile, 'node_modules', manifest.name)
       const pkg = JSON.parse(await fs.readFile(path.join(installedPath, 'package.json'), 'utf8'))
       if (pkg.name !== manifest.name || !pkg.dsh?.bundle || !pkg.dsh?.client) {
         throw Error('Installed package does not contain the host and native client')
