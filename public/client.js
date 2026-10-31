@@ -21596,7 +21596,7 @@ function SettingsSection() {
           alt: ""
         }
       )
-    ), /* @__PURE__ */ React9.createElement("h2", null, "\u5927\u80A5\u9C7C\u9972\u517B\u624B\u518C"), /* @__PURE__ */ React9.createElement("span", { className: "fish-version" }, "v", "0.2.15")), /* @__PURE__ */ React9.createElement(
+    ), /* @__PURE__ */ React9.createElement("h2", null, "\u5927\u80A5\u9C7C\u9972\u517B\u624B\u518C"), /* @__PURE__ */ React9.createElement("span", { className: "fish-version" }, "v", "0.2.16")), /* @__PURE__ */ React9.createElement(
       "button",
       {
         type: "button",

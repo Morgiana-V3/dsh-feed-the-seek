@@ -1,6 +1,6 @@
 {
   "name": "dsh-feed-the-seek",
-  "version": "0.2.15",
+  "version": "0.2.16",
   "license": "MIT",
   "description": "大肥鱼饲养手册：从聊天与工作中积累认知、经历与相处记忆，跨会话记住你的习惯，结合近期情绪与自我观察调整表达和协作方式。默认本地检索，可选向量语义增强。",
   "type": "module",
@@ -28,7 +28,13 @@
     "cordis.patch.yml",
     "README.md",
     "docs/**/*.md",
-    "docs/screenshots/*.png"
+    "docs/screenshots/market-intro-v2-a.png",
+    "docs/screenshots/overview.png",
+    "docs/screenshots/memories.png",
+    "docs/screenshots/history.png",
+    "docs/screenshots/settings.png",
+    "docs/screenshots/emotions.png",
+    "screenshots.json"
   ],
   "dsh": {
     "bundle": {

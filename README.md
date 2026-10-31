@@ -7,7 +7,7 @@
 
 给 DeepSeek 养一条会记事的鱼。
 
-[GitHub Release](https://github.com/Morgiana-V3/dsh-feed-the-seek/releases/tag/v0.2.15) · [使用与开发参考](docs/usage-guide.md) · [架构说明](docs/architecture.md)
+[GitHub Release](https://github.com/Morgiana-V3/dsh-feed-the-seek/releases/tag/v0.2.16) · [使用与开发参考](docs/usage-guide.md) · [架构说明](docs/architecture.md)
 
 </div>
 
@@ -81,10 +81,10 @@
 在 DSH 的「添加插件」中输入：
 
 ```text
-dsh-feed-the-seek@0.2.15
+dsh-feed-the-seek@0.2.16
 ```
 
-或者从 [Release 页面](https://github.com/Morgiana-V3/dsh-feed-the-seek/releases/tag/v0.2.15)下载 `.tgz` 安装包，在「添加插件」中填写它的绝对路径。安装后完全退出并重新打开 DSH 即可。
+或者从 [Release 页面](https://github.com/Morgiana-V3/dsh-feed-the-seek/releases/tag/v0.2.16)下载 `.tgz` 安装包，在「添加插件」中填写它的绝对路径。安装后完全退出并重新打开 DSH 即可。
 
 从源码构建（需要 Node.js 22.21+）：
 

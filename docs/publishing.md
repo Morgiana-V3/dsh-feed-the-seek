@@ -4,12 +4,12 @@
 
 ## 安装
 
-在 DSH「添加插件」中输入 `dsh-feed-the-seek@0.2.15`，或从 [GitHub Release](https://github.com/Morgiana-V3/dsh-feed-the-seek/releases/tag/v0.2.15) 下载 `.tgz` 并填写本地绝对路径。安装后完全退出并重启 DSH。
+在 DSH「添加插件」中输入 `dsh-feed-the-seek@0.2.16`，或从 [GitHub Release](https://github.com/Morgiana-V3/dsh-feed-the-seek/releases/tag/v0.2.16) 下载 `.tgz` 并填写本地绝对路径。安装后完全退出并重启 DSH。
 
 CLI 用户可按实际 profile 安装：
 
 ```sh
-dsh plugin --profile web add dsh-feed-the-seek@0.2.15
+dsh plugin --profile web add dsh-feed-the-seek@0.2.16
 ```
 
 `web` 是 CLI 示例，不代表桌面应用的 profile。桌面用户优先使用应用内的「添加插件」。
@@ -27,7 +27,7 @@ npm ci
 npm test
 npm run check:all
 npm pack
-npm publish ./dsh-feed-the-seek-0.2.15.tgz --access public --tag latest
+npm publish ./dsh-feed-the-seek-0.2.16.tgz --access public --tag latest
 ```
 
 发布需要已登录且有包权限的 npm 账号，账号还可能要求额外身份验证。正式版使用 `latest`；预发布版本使用单独的版本号和 `beta` 标签。npm 不允许重复发布同名同版本，见 [npm publish 文档](https://docs.npmjs.com/cli/v11/commands/npm-publish/)。
