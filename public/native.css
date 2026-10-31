@@ -338,7 +338,9 @@
   border-right: 2px solid var(--fish-ink);
   border-radius: 0;
   letter-spacing: 2px;
-  transition: background-color var(--fish-step-fast), color var(--fish-step-fast);
+  transition:
+    background-color var(--fish-step-fast),
+    color var(--fish-step-fast);
 }
 
 .fish-brain .fish-tabs button:last-child {
@@ -490,7 +492,8 @@
   background: var(--fish-blue);
 }
 
-.fish-brain .fish-status[data-off] i {
+.fish-brain .fish-status[data-off] i,
+.fish-brain .fish-footer > span[data-off] i {
   background: #9aa6bb;
 }
 
@@ -575,6 +578,24 @@
 
 .fish-brain .fish-learning[data-tone='failed'] i {
   background: var(--fish-danger);
+}
+
+.fish-brain .fish-learning[data-tone='retrying'] {
+  color: var(--fish-warn);
+}
+
+.fish-brain .fish-learning[data-tone='retrying'] i {
+  background: var(--fish-warn);
+}
+
+.fish-brain .fish-learning-reason {
+  flex-basis: 100%;
+  overflow: hidden;
+  color: var(--fish-muted);
+  font-size: 12px;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* ---------- Counters ---------- */
@@ -740,7 +761,12 @@
 .fish-brain .fish-skeleton i {
   display: block;
   height: 12px;
-  background: linear-gradient(90deg, var(--fish-soft) 0 40%, var(--fish-soft-strong) 40% 60%, var(--fish-soft) 60%);
+  background: linear-gradient(
+    90deg,
+    var(--fish-soft) 0 40%,
+    var(--fish-soft-strong) 40% 60%,
+    var(--fish-soft) 60%
+  );
   background-size: 300% 100%;
   animation: fish-shimmer 1.2s steps(6, end) infinite;
 }
@@ -923,7 +949,9 @@
   background: var(--fish-paper);
   border: 1px solid var(--fish-line);
   border-radius: 0;
-  transition: background-color var(--fish-step-fast), color var(--fish-step-fast);
+  transition:
+    background-color var(--fish-step-fast),
+    color var(--fish-step-fast);
 }
 
 .fish-brain .fish-filters button:hover:not([aria-pressed='true']) {
@@ -968,7 +996,9 @@
   overflow-wrap: anywhere;
   animation: fish-card-in var(--fish-step) both;
   animation-delay: calc(var(--fish-index, 0) * 40ms);
-  transition: box-shadow var(--fish-step-fast), transform var(--fish-step-fast);
+  transition:
+    box-shadow var(--fish-step-fast),
+    transform var(--fish-step-fast);
 }
 
 .fish-brain .fish-memory-card:hover {
@@ -1002,19 +1032,60 @@
   margin-left: auto;
 }
 
-.fish-brain .fish-meter {
+.fish-brain .fish-presence {
   display: inline-flex;
-  gap: 1px;
+  align-items: center;
+  gap: 4px;
+  padding: 0 5px;
+  color: var(--fish-muted);
+  border: 1px solid var(--fish-line-soft);
+  cursor: help;
 }
 
-.fish-brain .fish-meter i {
-  width: 4px;
-  height: 8px;
-  background: var(--fish-line-soft);
+.fish-brain .fish-presence i {
+  width: 6px;
+  height: 6px;
+  background: #9aa6bb;
 }
 
-.fish-brain .fish-meter i[data-on='true'] {
-  background: var(--kind, var(--fish-blue));
+.fish-brain .fish-presence[data-presence='pinned'] {
+  color: var(--fish-blue-deep);
+  background: var(--fish-soft);
+  border-color: var(--fish-line);
+}
+
+.fish-brain .fish-presence[data-presence='pinned'] i {
+  background: var(--fish-blue);
+}
+
+.fish-brain .fish-presence[data-presence='topical'] i {
+  background: var(--fish-success);
+}
+
+.fish-brain .fish-presence[data-presence='faded'],
+.fish-brain .fish-presence[data-presence='record'] {
+  border-style: dashed;
+}
+
+.fish-brain .fish-presence[data-presence='faded'] i,
+.fish-brain .fish-presence[data-presence='record'] i {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px #9aa6bb;
+}
+
+.fish-brain .fish-self-basis {
+  color: var(--fish-muted);
+}
+
+.fish-brain .fish-self-basis[data-unverified] {
+  color: var(--fish-warn);
+}
+
+.fish-brain .fish-inferred {
+  padding: 0 5px;
+  color: var(--fish-warn);
+  border: 1px dashed #e2c08f;
+  cursor: help;
 }
 
 .fish-brain .fish-tags {
@@ -1135,7 +1206,7 @@
   border-color: var(--fish-danger);
 }
 
-.fish-brain .fish-history[data-action='DELETE'] > p {
+.fish-brain .fish-history[data-action='DELETE'] > p:not(.fish-history-reason) {
   color: var(--fish-muted);
   text-decoration: line-through;
 }
@@ -1147,6 +1218,11 @@
 
 .fish-brain .fish-history > p {
   margin-top: 4px;
+}
+
+.fish-brain .fish-history > .fish-history-reason {
+  font-size: 12px;
+  line-height: 1.8;
 }
 
 .fish-brain .fish-action-tag {
@@ -1175,7 +1251,9 @@
   background: #f7faff;
   border: 1px solid var(--fish-line);
   cursor: pointer;
-  transition: border-color var(--fish-step-fast), background-color var(--fish-step-fast);
+  transition:
+    border-color var(--fish-step-fast),
+    background-color var(--fish-step-fast);
 }
 
 .fish-brain .fish-toggle-row:hover {
@@ -1226,7 +1304,9 @@
   height: 100%;
   background: #dce4f0;
   border: 2px solid #9aabc6;
-  transition: background-color var(--fish-step-fast), border-color var(--fish-step-fast);
+  transition:
+    background-color var(--fish-step-fast),
+    border-color var(--fish-step-fast);
 }
 
 .fish-brain .fish-switch-track::after {
@@ -1263,12 +1343,63 @@
   animation: fish-blink 0.5s steps(1, end) infinite;
 }
 
-.fish-brain .fish-toggle-row:has(input:disabled) {
+.fish-brain .fish-toggle-row[aria-busy='true'] {
   cursor: progress;
+}
+
+.fish-brain .fish-toggle-master {
+  grid-column: 1 / -1;
+}
+
+.fish-brain .fish-toggle-row[data-inactive] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.fish-brain .fish-toggle-row[data-inactive]:hover {
+  border-color: var(--fish-line);
+}
+
+.fish-brain .fish-toggle-row[data-inactive] .fish-switch input {
+  cursor: not-allowed;
 }
 
 .fish-brain .fish-cost-note {
   margin-top: 10px;
+}
+
+.fish-brain .fish-usage {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin: 14px 0 0;
+}
+
+.fish-brain .fish-usage > div {
+  padding: 8px 10px;
+  background: var(--fish-paper-tint);
+  border: 1px solid var(--fish-line-soft);
+}
+
+.fish-brain .fish-usage dt {
+  color: var(--fish-muted);
+  font-size: 12px;
+}
+
+.fish-brain .fish-usage dd {
+  margin: 2px 0 0;
+  color: var(--fish-ink-strong);
+}
+
+.fish-brain .fish-usage dd small {
+  display: block;
+  color: var(--fish-danger);
+  font-size: 12px;
+}
+
+.fish-brain .fish-usage-note {
+  margin-top: 6px;
+  font-size: 12px;
 }
 
 /* ---------- Forms ---------- */
@@ -1325,11 +1456,22 @@
   background: var(--fish-paper);
   border: 2px solid var(--fish-line);
   cursor: pointer;
-  transition: border-color var(--fish-step-fast), background-color var(--fish-step-fast);
+  transition:
+    border-color var(--fish-step-fast),
+    background-color var(--fish-step-fast);
 }
 
 .fish-brain .fish-mode-option:hover {
   border-color: #8eaae0;
+}
+
+.fish-brain .fish-mode-option[data-unavailable] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.fish-brain .fish-mode-option[data-unavailable]:hover {
+  border-color: var(--fish-line);
 }
 
 .fish-brain .fish-mode-option:has(input:checked) {
@@ -1667,6 +1809,10 @@
   .fish-brain .fish-filter-input {
     max-width: none;
   }
+
+  .fish-brain .fish-usage {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 @container (max-width: 400px) {
@@ -1718,4 +1864,35 @@
     font-size: 12px;
     letter-spacing: 2px;
   }
+}
+
+.fish-brain .fish-name-form,
+.fish-brain .fish-history-controls,
+.fish-brain .fish-pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: 10px;
+  margin-block: 12px;
+}
+
+.fish-brain .fish-name-form label,
+.fish-brain .fish-history-controls label,
+.fish-brain .fish-pagination label {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.fish-brain .fish-history-controls label:first-child {
+  flex: 1 1 200px;
+}
+
+.fish-brain .fish-pagination input {
+  width: 72px;
+}
+
+.fish-brain .fish-name-form input {
+  max-width: 100%;
+  width: 180px;
 }

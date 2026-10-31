@@ -1,7 +1,7 @@
 {
   "name": "dsh-feed-the-seek",
-  "version": "0.2.15-beta.1",
-  "private": true,
+  "version": "0.2.15",
+  "license": "MIT",
   "description": "大肥鱼饲养手册：从聊天与工作中积累认知、经历与相处记忆，跨会话记住你的习惯，结合近期情绪与自我观察调整表达和协作方式。默认本地检索，可选向量语义增强。",
   "type": "module",
   "main": "dist/src/dsh.js",
@@ -47,18 +47,27 @@
     "node": ">=22.21.0"
   },
   "scripts": {
-    "build": "tsc && node scripts/build-client.mjs",
+    "build": "node scripts/build/build.mjs",
     "start": "node dist/src/server.js",
     "dev": "npm run build && npm start",
-    "dev:dsh": "node scripts/dev-desktop.mjs",
-    "dev:dsh:stop": "node scripts/dev-desktop.mjs --release",
-    "test": "npm run build && node --test dist/tests/*.test.js",
+    "dev:dsh": "node scripts/development/dev-desktop.mjs",
+    "dev:dsh:stop": "node scripts/development/dev-desktop.mjs --release",
+    "test": "npm run build && node --test \"dist/tests/**/*.test.js\"",
     "check": "tsc --noEmit",
-    "check:release": "node scripts/check-release.mjs",
-    "prepack": "npm run build && npm run check:release"
+    "check:release": "node scripts/release/check-release.mjs",
+    "prepack": "npm run build && npm run check:release",
+    "format": "prettier --write src tests scripts public/app.js public/*.css public/index.html package.json tsconfig.json *.mjs .prettierrc.json",
+    "format:check": "prettier --check src tests scripts public/app.js public/*.css public/index.html package.json tsconfig.json *.mjs .prettierrc.json",
+    "lint": "eslint src tests scripts public/app.js",
+    "lint:fix": "npm run lint -- --fix",
+    "lint:styles": "stylelint \"public/*.css\"",
+    "lint:styles:fix": "npm run lint:styles -- --fix",
+    "check:all": "npm run format:check && npm run lint && npm run lint:styles && npm run check:boundaries && npm run check",
+    "check:boundaries": "node scripts/checks/check-boundaries.mjs"
   },
   "dependencies": {
     "sqlite-vec": "0.1.6",
+    "ts-dedent": "^2.3.0",
     "zod": "^4.6.7"
   },
   "devDependencies": {
@@ -66,9 +75,13 @@
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "esbuild": "^0.28.2",
+    "eslint": "^10.14.0",
+    "prettier": "^3.9.10",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
-    "typescript": "^5.9.3"
+    "stylelint": "^17.16.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.72.1"
   },
   "icon": "public/assets/plugin-icon-v6.png",
   "repository": {
@@ -86,5 +99,9 @@
     "memory",
     "companion",
     "local-first"
-  ]
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  }
 }

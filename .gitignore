@@ -6,7 +6,9 @@ dist/src/**
 !dist/src/**/
 !dist/src/**/*.js
 !dist/src/**/*.d.ts
+.feed-the-seek/
 .yuwen/
+.codex/
 work/
 .env
 *.sqlite*
@@ -20,3 +22,4 @@ outputs/
 *.key
 *.p12
 *.pfx
+.claude

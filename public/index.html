@@ -1,13 +1,176 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#ffffff"><title>大肥鱼饲养手册 · DSH</title><link rel="stylesheet" href="/style.css"></head>
-<body>
-<header class="app-header"><a class="brand" href="/" aria-label="大肥鱼饲养手册首页"><svg class="fish-mark" viewBox="0 0 48 36" aria-hidden="true"><path d="M7 14C7 6 17 3 27 6c9 3 12 10 9 17 5 1 7-3 8-5 2 8-4 13-11 10-7 7-24 6-28-3-2-4-2-8 2-11Z" fill="currentColor"/><path d="M17 9v8m-4-4h8" stroke="#ffffff" stroke-width="3" stroke-linecap="round"/><circle cx="28" cy="19" r="2" fill="#ffffff"/><path d="M24 26c3 1 5 1 7-1" fill="none" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round"/></svg><strong>大肥鱼饲养手册</strong></a><span class="version">0.2.15-beta.1</span><span class="host-label">DSH 插件</span><div class="header-actions"><span class="mode-tag" id="mode-label">连接中</span><button class="button" id="refresh">刷新</button></div></header>
-<nav class="tabs" aria-label="主导航"><button data-page="overview" class="active" aria-current="page">当前实例</button><button data-page="memories">记忆 <span id="nav-count">0</span></button><button data-page="growth">变化记录</button><button data-page="settings">设置</button></nav>
-<div class="layout"><main id="main" tabindex="-1"><div class="empty-state">加载中…</div></main>
-<aside class="inspector" aria-label="召回预览"><div class="panel-heading"><h2>召回预览</h2><span class="tag">检索测试</span></div><div class="session-row"><span id="session-label">测试会话 01</span><button id="new-session" class="text-button">新开会话</button></div><label class="input-label" for="query">输入</label><textarea id="query" rows="3">回声戒指能重复触发终结技吗？</textarea><div class="project-row"><label for="project">范围</label><select id="project"><option value="login-project">登录项目</option><option value="">全局</option><option value="other-project">另一个项目</option></select></div><div class="session-toggle"><label for="session-toggle">使用记忆</label><button id="session-toggle" class="switch on" role="switch" aria-checked="true" aria-label="本会话使用记忆"></button></div><button class="button primary full" id="recall">检索记忆</button><div id="recall-result"><div class="empty-recall"><img class="idle-character" src="/assets/portrait-calm.png" alt="抱着饭碗的蓝色鲸鱼娘插画" width="136" height="136"><p>暂无检索结果</p></div></div><details class="context-details"><summary>注入原文</summary><pre id="raw-context">尚未检索</pre></details></aside></div>
-<footer class="app-footer"><span id="storage-status">本地数据库</span><a href="/assets/ARTWORK.md" target="_blank" rel="noopener">角色素材说明</a></footer>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <meta
+      name="theme-color"
+      content="#ffffff"
+    />
+    <title>大肥鱼饲养手册 · DSH</title>
+    <link
+      rel="stylesheet"
+      href="/style.css"
+    />
+  </head>
+  <body>
+    <header class="app-header">
+      <a
+        class="brand"
+        href="/"
+        aria-label="大肥鱼饲养手册首页"
+        ><svg
+          class="fish-mark"
+          viewBox="0 0 48 36"
+          aria-hidden="true"
+        >
+          <path
+            d="M7 14C7 6 17 3 27 6c9 3 12 10 9 17 5 1 7-3 8-5 2 8-4 13-11 10-7 7-24 6-28-3-2-4-2-8 2-11Z"
+            fill="currentColor"
+          />
+          <path
+            d="M17 9v8m-4-4h8"
+            stroke="#ffffff"
+            stroke-width="3"
+            stroke-linecap="round"
+          />
+          <circle
+            cx="28"
+            cy="19"
+            r="2"
+            fill="#ffffff"
+          />
+          <path
+            d="M24 26c3 1 5 1 7-1"
+            fill="none"
+            stroke="#ffffff"
+            stroke-width="1.5"
+            stroke-linecap="round"
+          /></svg
+        ><strong>大肥鱼饲养手册</strong></a
+      ><span class="version">0.2.15-beta.1</span><span class="host-label">DSH 插件</span>
+      <div class="header-actions">
+        <span
+          class="mode-tag"
+          id="mode-label"
+          >连接中</span
+        ><button
+          class="button"
+          id="refresh"
+        >
+          刷新
+        </button>
+      </div>
+    </header>
+    <nav
+      class="tabs"
+      aria-label="主导航"
+    >
+      <button
+        data-page="overview"
+        class="active"
+        aria-current="page"
+      >
+        当前实例</button
+      ><button data-page="memories">记忆 <span id="nav-count">0</span></button
+      ><button data-page="growth">变化记录</button><button data-page="settings">设置</button>
+    </nav>
+    <div class="layout">
+      <main
+        id="main"
+        tabindex="-1"
+      >
+        <div class="empty-state">加载中…</div>
+      </main>
+      <aside
+        class="inspector"
+        aria-label="召回预览"
+      >
+        <div class="panel-heading">
+          <h2>召回预览</h2>
+          <span class="tag">检索测试</span>
+        </div>
+        <div class="session-row">
+          <span id="session-label">测试会话 01</span
+          ><button
+            id="new-session"
+            class="text-button"
+          >
+            新开会话
+          </button>
+        </div>
+        <label
+          class="input-label"
+          for="query"
+          >输入</label
+        ><textarea
+          id="query"
+          rows="3"
+        >
+回声戒指能重复触发终结技吗？</textarea>
+        <div class="project-row">
+          <label for="project">范围</label
+          ><select id="project">
+            <option value="login-project">登录项目</option>
+            <option value="">全局</option>
+            <option value="other-project">另一个项目</option>
+          </select>
+        </div>
+        <div class="session-toggle">
+          <label for="session-toggle">使用记忆</label
+          ><button
+            id="session-toggle"
+            class="switch on"
+            role="switch"
+            aria-checked="true"
+            aria-label="本会话使用记忆"
+          ></button>
+        </div>
+        <button
+          class="button primary full"
+          id="recall"
+        >
+          检索记忆
+        </button>
+        <div id="recall-result">
+          <div class="empty-recall">
+            <img
+              class="idle-character"
+              src="/assets/portrait-calm.png"
+              alt="抱着饭碗的蓝色鲸鱼娘插画"
+              width="136"
+              height="136"
+            />
+            <p>暂无检索结果</p>
+          </div>
+        </div>
+        <details class="context-details">
+          <summary>注入原文</summary>
+          <pre id="raw-context">尚未检索</pre>
+        </details>
+      </aside>
+    </div>
+    <footer class="app-footer">
+      <span id="storage-status">本地数据库</span
+      ><a
+        href="/assets/ARTWORK.md"
+        target="_blank"
+        rel="noopener"
+        >角色素材说明</a
+      >
+    </footer>
 
-<div id="toast" role="status" aria-live="polite"></div><script type="module" src="/app.js"></script></body></html>
-
-
+    <div
+      id="toast"
+      role="status"
+      aria-live="polite"
+    ></div>
+    <script
+      type="module"
+      src="/app.js"
+    ></script>
+  </body>
+</html>

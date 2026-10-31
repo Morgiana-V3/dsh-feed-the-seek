@@ -1,61 +1,49 @@
 # 发布与插件搜索收录
 
-核对日期：2026-10-30。当前为本地测试版；本文是发布步骤，不表示已经完成 npm 发布或社区收录。
+正式版通过 npm 和 GitHub Release 分发。代码与技术文档采用 [MIT](../LICENSE)，图片、图标和字体遵循[素材说明](../public/assets/ARTWORK.md)。
 
-## 安装与搜索是两个环节
+## 安装
 
-DSH 的「添加插件」支持包名、Git 地址、本地目录和 tarball。可获取、符合规范的插件可以按地址安装。「发现」则读取用户配置的索引，官方当前实现不预设索引源；发布到 npm 不会自动出现在所有用户的搜索中。依据：[官方插件市场说明](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/boot/plugin-market/README.md)。
+在 DSH「添加插件」中输入 `dsh-feed-the-seek@0.2.15`，或从 [GitHub Release](https://github.com/Morgiana-V3/dsh-feed-the-seek/releases/tag/v0.2.15) 下载 `.tgz` 并填写本地绝对路径。安装后完全退出并重启 DSH。
 
-## 推荐发布顺序
+CLI 用户可按实际 profile 安装：
 
-1. **公开 GitHub 仓库。** 本地 remote 指向 `Morgiana-V3/dsh-feed-the-seek`；发布时确认已公开并推送准备发布的内容。补齐描述、截图和许可证，添加 topic `dsh-plugin`。npm keywords 不会自动创建 GitHub topic。
-2. **发布 npm 包。** 保留包名 `dsh-feed-the-seek` 和中文展示名「大肥鱼饲养手册」。确定许可证后移除清单的 `private: true`，使用有权限的账号发布。
-3. **提交社区索引。** 按 [dsh-plugin.org 提交说明](https://dsh-plugin.org/zh/submit)提交仓库、包名、安装命令、分类与兼容范围。该第三方社区要求公开仓库、根目录 `package.json`、`dsh-plugin` topic 和安装说明；其一键安装目录要求 npm 包。收录不是即时保证，也不是官方认证。
-4. **验证搜索与安装。** 向索引运营方取得实际索引地址，在 DSH「发现 → 管理索引源」添加并刷新，搜索包名、中文名与「记忆」，再在干净 profile 安装验证。社区网页 URL 不等于索引 API URL。
+```sh
+dsh plugin --profile web add dsh-feed-the-seek@0.2.15
+```
 
-也可以自行托管符合 [DSH 索引格式](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/util/plugin-market-index/README.md)的 JSON 索引，让使用者添加。
+`web` 是 CLI 示例，不代表桌面应用的 profile。桌面用户优先使用应用内的「添加插件」。
 
-## 当前测试版的发布命令
+## 维护者发布流程
 
-### GitHub 仓库链接安装
-
-仓库安装和 npm 安装是独立渠道。若要让用户直接安装 GitHub 链接，每次提交前执行 `npm run build`，并把 `dist/src/**/*.js`、`dist/src/**/*.d.ts` 和 `public/client.js` 与源码一起提交。`.gitignore` 只放行这些运行产物，继续忽略测试构建文件与 source map。
-
-根清单的 `main` 为 `dist/src/dsh.js`。本机 DSH 所带 pnpm 在存在 `prepack` 而入口缺失时，会尝试准备 Git 依赖，未授权就报 `ERR_PNPM_GIT_DEP_PREPARE_NOT_ALLOWED`。提交构建产物后，安装使用已构建入口，无需放开全局脚本权限。不同 pnpm 版本仍需复测；发布的 npm 包或预构建 tarball 是更明确的分发方式。
-
-已发布提交不会因本地修改自动更新。修复必须提交并推送后，仓库链接才会指向新内容；旧提交 `5bd6da8` 仍缺少构建产物。等待推送期间，可以在 DSH「添加插件」里填写本地 `npm pack` 产出的 `.tgz` 绝对路径。
-
-### npm 发布
-
-下列命令只在已决定公开发布、许可证确定、包名权限确认且已移除 `private: true` 后执行：
+1. 更新 `package.json`、锁文件、README 与安装示例中的版本号。
+2. 运行测试和静态检查，构建分发包。
+3. 在独立环境安装该包，验证宿主加载、设置页、记忆读写及升级后的数据保留。
+4. 提交源码与 `dist/src`、`public/client.js` 预构建文件，推送提交并创建版本标签。
+5. 将经过验证的同一份 `.tgz` 发布到 npm，并附在对应的 GitHub Release 中，同时提供 SHA-256 校验文件。
 
 ```sh
 npm ci
 npm test
-npm run check:release
+npm run check:all
 npm pack
-npm login
-npm publish --access public --tag beta
+npm publish ./dsh-feed-the-seek-0.2.15.tgz --access public --tag latest
 ```
 
-发布后可按标签安装：
+发布需要已登录且有包权限的 npm 账号，账号还可能要求额外身份验证。正式版使用 `latest`；预发布版本使用单独的版本号和 `beta` 标签。npm 不允许重复发布同名同版本，见 [npm publish 文档](https://docs.npmjs.com/cli/v11/commands/npm-publish/)。
 
-```sh
-dsh plugin --profile web add dsh-feed-the-seek@beta
-```
+Git 地址安装依赖仓库中的预构建文件；安装端不应依赖执行本项目的构建脚本。修改代码后必须将构建产物与源码同步提交。预构建 tarball 可用于固定分发内容。
 
-这是 CLI 的 `web` profile 示例。桌面应用应在自身的「添加插件」中输入 `dsh-feed-the-seek@beta`，避免装到另一个 profile。
+## 分发检查与支持范围
 
-`beta` 用于预发布版本；向社区提交时写明完整版本与安装命令，并确认其是否收录 beta。仅发布 beta 不能保证只读取 latest 的扫描器能够发现。稳定版验证完成后再使用新的稳定版本号发布到 latest，才采用不带标签的安装命令。
+`npm run check:release` 同时检查 Git 候选文件和 npm 文件清单：排除数据库、日志、凭据、个人路径、旧编译产物和未列入清单的图片，并检查 PNG 文本及 EXIF 元数据。测试和开发脚本保留在源码仓库，不进入安装包。数据扫描不能代替对导出记忆正文的人工审查。
 
-npm 不允许复用已发布的同名版本；再次发布前需递增版本。参考 [npm publish 文档](https://docs.npmjs.com/cli/v11/commands/npm-publish/)。
+支持范围为 **Windows、单人本地使用**。已验证 DSH 0.2.1-rc.5 的内核集成；QQ 具体插件联调、多人身份隔离和跨平台安装仍需进一步验证。发布说明应列出实际完成的检查，不能把宿主集成测试等同于完整桌面界面验收。
 
-## 本项目上架前还需确认
+## 搜索收录
 
-- 选择代码许可证，分别说明角色素材和 Zpix 字体的使用条件。
-- 确认 npm 包名、账号权限以及公开仓库与待发版本一致。
-- 在干净 DSH profile 安装最终 tarball，记录实测 DSH 版本；不能把上游最新规范等同于本机支持范围。
-- 保留单人使用、QQ 尚未联调、跨平台尚未验证的说明。
-- 核对索引中的图标、中文标题、描述、类别、关键字与安装版本。
+按地址安装和搜索收录是两个环节。DSH 的「发现」读取用户配置的索引，npm 发布不会自动使插件出现在所有用户的搜索中，见[官方插件市场说明](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/boot/plugin-market/README.md)。
 
-README 的主要内容使用普通 Markdown，因为 DSH 详情页会省略原始 HTML；GitHub 中的图标居中只是展示增强。[官方详情渲染说明](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/client/ui-plugin-market/README.md)
+如需申请第三方社区收录，可按 [dsh-plugin.org 提交说明](https://dsh-plugin.org/zh/submit)提供公开仓库、包名、安装命令、分类与兼容范围，并设置 `dsh-plugin` topic。社区收录不等于官方认证。
+
+也可以托管符合 [DSH 索引格式](https://github.com/deepseek-ai/deepseek-harness/blob/master/packages/util/plugin-market-index/README.md)的 JSON 索引。网页地址不等于索引 API 地址，需在 DSH「发现 → 管理索引源」中添加实际索引地址并验证。
