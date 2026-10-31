@@ -297,6 +297,12 @@ export function createDashboard(
           send(engine.store.renamePersona(scope.persona, input.name))
           return
         }
+        if (url.pathname === '/api/persona/activate') {
+          const input = z.object({ scope: Scope }).strict().parse(body)
+          const scope = checkedScope(input.scope)
+          send(engine.store.activatePersona(scope.persona))
+          return
+        }
         if (url.pathname === '/api/embedding-test') {
           const saved = engine.store.settings()
           send(

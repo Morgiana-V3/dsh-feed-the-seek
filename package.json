@@ -1,6 +1,6 @@
 {
   "name": "dsh-feed-the-seek",
-  "version": "0.2.16",
+  "version": "1.0.0",
   "license": "MIT",
   "description": "大肥鱼饲养手册：从聊天与工作中积累认知、经历与相处记忆，跨会话记住你的习惯，结合近期情绪与自我观察调整表达和协作方式。默认本地检索，可选向量语义增强。",
   "type": "module",

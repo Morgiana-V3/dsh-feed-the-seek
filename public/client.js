@@ -20693,7 +20693,7 @@ function OverviewPanel({
         decoding: "async"
       }
     )))
-  ), /* @__PURE__ */ React5.createElement("div", { className: "fish-profile-info" }, /* @__PURE__ */ React5.createElement("div", { className: "fish-eyebrow" }, state.scope.persona === state.activePersona ? "\u6B63\u5728\u966A\u4F60" : "\u4EE5\u524D\u7684\u5979"), /* @__PURE__ */ React5.createElement("h2", null, hasOwnName ? persona.name : naming.name || displayName(void 0)), /* @__PURE__ */ React5.createElement(
+  ), /* @__PURE__ */ React5.createElement("div", { className: "fish-profile-info" }, /* @__PURE__ */ React5.createElement("div", { className: "fish-eyebrow" }, state.scope.persona === state.activePersona ? "\u966A\u4F34\u65B0\u5BF9\u8BDD" : "\u4F11\u606F\u4E2D"), /* @__PURE__ */ React5.createElement("h2", null, hasOwnName ? persona.name : naming.name || displayName(void 0)), /* @__PURE__ */ React5.createElement(
     "span",
     {
       className: "fish-status",
@@ -21275,7 +21275,10 @@ function SettingsPanel({
   }
   const isEnabled = state.settings.enabled;
   const usage = state.learningUsage;
-  return /* @__PURE__ */ React7.createElement("div", null, /* @__PURE__ */ React7.createElement("div", { className: "fish-section-heading" }, /* @__PURE__ */ React7.createElement("h3", null, "\u529F\u80FD\u5F00\u5173")), /* @__PURE__ */ React7.createElement("div", { className: "fish-toggle-grid" }, /* @__PURE__ */ React7.createElement(
+  const viewedName = displayName(
+    state.personas.find((persona) => persona.id === state.scope.persona)?.name
+  );
+  return /* @__PURE__ */ React7.createElement("div", null, /* @__PURE__ */ React7.createElement("div", { className: "fish-section-heading" }, /* @__PURE__ */ React7.createElement("h3", null, "\u529F\u80FD\u5F00\u5173"), /* @__PURE__ */ React7.createElement("span", { className: "fish-muted" }, "\u5BF9\u6240\u6709\u4F19\u4F34\u751F\u6548")), /* @__PURE__ */ React7.createElement("div", { className: "fish-toggle-grid" }, /* @__PURE__ */ React7.createElement(
     Toggle,
     {
       className: "fish-toggle-master",
@@ -21306,13 +21309,13 @@ function SettingsPanel({
     "dl",
     {
       className: "fish-usage",
-      "aria-label": "\u5F53\u524D\u4F19\u4F34\u7684\u540E\u53F0\u7528\u91CF"
+      "aria-label": `\u300C${viewedName}\u300D\u7684\u540E\u53F0\u7528\u91CF`
     },
     /* @__PURE__ */ React7.createElement("div", null, /* @__PURE__ */ React7.createElement("dt", null, "\u540E\u53F0\u8C03\u7528"), /* @__PURE__ */ React7.createElement("dd", null, usage.calls.toLocaleString(), " \u6B21", usage.failedCalls > 0 && /* @__PURE__ */ React7.createElement("small", null, usage.failedCalls, " \u6B21\u672A\u5B8C\u6210"))),
     /* @__PURE__ */ React7.createElement("div", null, /* @__PURE__ */ React7.createElement("dt", null, "\u8F93\u5165 token"), /* @__PURE__ */ React7.createElement("dd", null, usage.inputTokens.toLocaleString())),
     /* @__PURE__ */ React7.createElement("div", null, /* @__PURE__ */ React7.createElement("dt", null, "\u7F13\u5B58\u8BFB\u53D6 token"), /* @__PURE__ */ React7.createElement("dd", null, usage.cacheReadTokens.toLocaleString())),
     /* @__PURE__ */ React7.createElement("div", null, /* @__PURE__ */ React7.createElement("dt", null, "\u8F93\u51FA token"), /* @__PURE__ */ React7.createElement("dd", null, usage.outputTokens.toLocaleString()))
-  ), /* @__PURE__ */ React7.createElement(
+  ), usage && /* @__PURE__ */ React7.createElement("p", { className: "fish-muted fish-usage-note" }, "\u4EE5\u4E0A\u662F\u300C", viewedName, "\u300D\u7684\u540E\u53F0\u7528\u91CF\u3002"), /* @__PURE__ */ React7.createElement(
     RetrievalSettings,
     {
       state,
@@ -21320,7 +21323,7 @@ function SettingsPanel({
       submitAction,
       notify
     }
-  ), /* @__PURE__ */ React7.createElement("details", { className: "fish-fold" }, /* @__PURE__ */ React7.createElement("summary", null, "\u91CD\u65B0\u9886\u517B"), /* @__PURE__ */ React7.createElement("div", { className: "fish-fold-body" }, /* @__PURE__ */ React7.createElement("p", { className: "fish-muted" }, "\u65B0\u7684\u4F19\u4F34\u4F1A\u4ECE\u96F6\u5F00\u59CB\u8BA4\u8BC6\u4F60\uFF0C\u4E4B\u540E\u65B0\u5F00\u7684\u5BF9\u8BDD\u7531\u5979\u966A\u4F34\uFF1B\u5DF2\u7ECF\u5728\u8FDB\u884C\u7684\u5BF9\u8BDD\u4ECD\u7531\u539F\u6765\u7684\u4F19\u4F34\u7EE7\u7EED\u3002\u539F\u6765\u4F19\u4F34\u7684\u8BB0\u5FC6\u4F1A\u4FDD\u7559\uFF0C\u53EF\u4EE5\u968F\u65F6\u5728\u9876\u90E8\u5207\u6362\u67E5\u770B\u3002"), /* @__PURE__ */ React7.createElement(
+  ), /* @__PURE__ */ React7.createElement("details", { className: "fish-fold" }, /* @__PURE__ */ React7.createElement("summary", null, "\u9886\u517B\u65B0\u4F19\u4F34"), /* @__PURE__ */ React7.createElement("div", { className: "fish-fold-body" }, /* @__PURE__ */ React7.createElement("p", { className: "fish-muted" }, "\u65B0\u7684\u4F19\u4F34\u4F1A\u4ECE\u96F6\u5F00\u59CB\u8BA4\u8BC6\u4F60\uFF0C\u4E4B\u540E\u65B0\u5F00\u7684\u5BF9\u8BDD\u7531\u5979\u966A\u4F34\uFF1B\u5DF2\u7ECF\u5728\u8FDB\u884C\u7684\u5BF9\u8BDD\u4ECD\u7531\u539F\u6765\u7684\u4F19\u4F34\u7EE7\u7EED\u3002\u539F\u6765\u7684\u4F19\u4F34\u4E0D\u4F1A\u88AB\u5220\u9664\uFF0C\u8BB0\u5FC6\u90FD\u4F1A\u4FDD\u7559\uFF1A\u5728\u9876\u90E8\u201C\u67E5\u770B\u4F19\u4F34\u201D\u91CC\u9009\u4E2D\u5979\uFF0C\u5C31\u80FD\u8BA9\u5979\u91CD\u65B0\u966A\u4F34\u65B0\u5BF9\u8BDD\u3002"), /* @__PURE__ */ React7.createElement(
     "form",
     {
       className: "fish-form",
@@ -21344,7 +21347,7 @@ function SettingsPanel({
         className: "fish-button",
         disabled: isBusy
       },
-      "\u91CD\u65B0\u9886\u517B"
+      "\u9886\u517B"
     )
   ))));
 }
@@ -21463,12 +21466,19 @@ function useSettings() {
     setIsBusy(true);
     setActionError("");
     try {
-      const result = await request(endpoint, body, state.token);
-      await loadSettings();
+      let result;
+      try {
+        result = await request(endpoint, body, state.token);
+      } catch (error62) {
+        setActionError(error62 instanceof Error ? error62.message : "\u64CD\u4F5C\u5931\u8D25");
+        return null;
+      }
+      try {
+        await loadSettings();
+      } catch {
+        setConnectionError("\u64CD\u4F5C\u5DF2\u5B8C\u6210\uFF0C\u4F46\u9875\u9762\u5237\u65B0\u5931\u8D25\uFF0C\u7A0D\u540E\u4F1A\u81EA\u52A8\u66F4\u65B0");
+      }
       return result;
-    } catch (error62) {
-      setActionError(error62 instanceof Error ? error62.message : "\u64CD\u4F5C\u5931\u8D25");
-      return null;
     } finally {
       setIsBusy(false);
     }
@@ -21578,7 +21588,7 @@ function SettingsSection() {
       "link",
       {
         rel: "stylesheet",
-        href: `/fish-brain/native.css?v=${"b5a517787c42"}`
+        href: `/fish-brain/native.css?v=${"b0c774a2226d"}`
       }
     ),
     /* @__PURE__ */ React9.createElement("header", { className: "fish-header" }, /* @__PURE__ */ React9.createElement("div", { className: "fish-brand" }, /* @__PURE__ */ React9.createElement(
@@ -21596,7 +21606,7 @@ function SettingsSection() {
           alt: ""
         }
       )
-    ), /* @__PURE__ */ React9.createElement("h2", null, "\u5927\u80A5\u9C7C\u9972\u517B\u624B\u518C"), /* @__PURE__ */ React9.createElement("span", { className: "fish-version" }, "v", "0.2.16")), /* @__PURE__ */ React9.createElement(
+    ), /* @__PURE__ */ React9.createElement("h2", null, "\u5927\u80A5\u9C7C\u9972\u517B\u624B\u518C"), /* @__PURE__ */ React9.createElement("span", { className: "fish-version" }, "v", "1.0.0")), /* @__PURE__ */ React9.createElement(
       "button",
       {
         type: "button",
@@ -21694,7 +21704,7 @@ function SettingsBody({
   const isViewingRetained = state.scope.persona !== state.activePersona;
   const runningJobs = learningActivity(state.jobs).working;
   const isRecording = state.settings.enabled && state.settings.learning;
-  return /* @__PURE__ */ React9.createElement(React9.Fragment, null, /* @__PURE__ */ React9.createElement("div", { className: "fish-frame" }, /* @__PURE__ */ React9.createElement("div", { className: "fish-toolbar" }, /* @__PURE__ */ React9.createElement("label", { className: "fish-persona-select" }, "\u4F19\u4F34", /* @__PURE__ */ React9.createElement(
+  return /* @__PURE__ */ React9.createElement(React9.Fragment, null, /* @__PURE__ */ React9.createElement("div", { className: "fish-frame" }, /* @__PURE__ */ React9.createElement("div", { className: "fish-toolbar" }, /* @__PURE__ */ React9.createElement("div", { className: "fish-toolbar-main" }, /* @__PURE__ */ React9.createElement("label", { className: "fish-persona-select" }, "\u67E5\u770B\u4F19\u4F34", /* @__PURE__ */ React9.createElement(
     "select",
     {
       value: state.scope.persona,
@@ -21708,8 +21718,30 @@ function SettingsBody({
         value: persona.id
       },
       displayName(persona.name),
-      persona.id === state.activePersona ? " \xB7 \u6B63\u5728\u966A\u4F60" : " \xB7 \u4EE5\u524D\u7684\u5979"
+      persona.id === state.activePersona ? " \xB7 \u966A\u4F34\u65B0\u5BF9\u8BDD" : ""
     ))
+  )), isViewingRetained ? /* @__PURE__ */ React9.createElement(
+    "button",
+    {
+      type: "button",
+      className: "fish-button fish-button-small",
+      disabled: isBusy,
+      title: `\u5979\u7684\u8BB0\u5FC6\u90FD\u8FD8\u5728\uFF0C\u4E4B\u524D\u548C\u5979\u5F00\u59CB\u7684\u5BF9\u8BDD\u4ECD\u7531\u5979\u966A\u4F34\u3002\u65B0\u5BF9\u8BDD\u76EE\u524D\u7531\u300C${displayName(activePersona?.name)}\u300D\u966A\u4F34\uFF0C\u70B9\u4E00\u4E0B\u6539\u4E3A\u7531\u5979\u966A\u4F34\u3002`,
+      onClick: async () => {
+        if (await submitAction("persona/activate", { scope: state.scope })) {
+          notify(`\u4E4B\u540E\u7684\u65B0\u5BF9\u8BDD\u7531\u300C${displayName(viewedPersona?.name)}\u300D\u966A\u4F34`);
+        }
+      }
+    },
+    "\u8BA9\u5979\u966A\u4F34\u65B0\u5BF9\u8BDD"
+  ) : /* @__PURE__ */ React9.createElement(
+    "span",
+    {
+      className: "fish-tag",
+      "data-ok": true,
+      title: "\u4E4B\u540E\u65B0\u5F00\u7684\u5BF9\u8BDD\u7531\u5979\u966A\u4F34\uFF1B\u5DF2\u7ECF\u5F00\u59CB\u7684\u5BF9\u8BDD\u4ECD\u7531\u5F53\u65F6\u7684\u4F19\u4F34\u966A\u4F34\u3002"
+    },
+    "\u966A\u4F34\u65B0\u5BF9\u8BDD\u4E2D"
   )), /* @__PURE__ */ React9.createElement(
     PersonaName,
     {
@@ -21719,15 +21751,7 @@ function SettingsBody({
       submitAction,
       notify
     }
-  ), state.demo && /* @__PURE__ */ React9.createElement("span", { className: "fish-tag fish-tag-dashed" }, "\u6F14\u793A\u6570\u636E")), isViewingRetained && /* @__PURE__ */ React9.createElement("div", { className: "fish-retained-banner" }, "\u6B63\u5728\u770B\u4EE5\u524D\u7684\u300C", displayName(viewedPersona?.name), "\u300D\uFF1A\u5979\u7684\u8BB0\u5FC6\u90FD\u8FD8\u5728\uFF0C\u4F46\u4E0D\u518D\u53C2\u4E0E\u65B0\u7684\u5BF9\u8BDD\uFF1B\u65B0\u7684\u5BF9\u8BDD\u7531\u300C", displayName(activePersona?.name), "\u300D\u966A\u4F60\u3002", /* @__PURE__ */ React9.createElement(
-    "button",
-    {
-      type: "button",
-      className: "fish-text-button",
-      onClick: () => setViewedPersonaId(state.activePersona)
-    },
-    "\u56DE\u5230\u73B0\u5728\u7684\u5979"
-  )), /* @__PURE__ */ React9.createElement(
+  ), state.demo && /* @__PURE__ */ React9.createElement("span", { className: "fish-tag fish-tag-dashed" }, "\u6F14\u793A\u6570\u636E")), /* @__PURE__ */ React9.createElement(
     "nav",
     {
       className: "fish-tabs",

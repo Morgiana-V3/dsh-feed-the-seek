@@ -94,7 +94,7 @@ export function OverviewPanel({
         </div>
         <div className="fish-profile-info">
           <div className="fish-eyebrow">
-            {state.scope.persona === state.activePersona ? '正在陪你' : '以前的她'}
+            {state.scope.persona === state.activePersona ? '陪伴新对话' : '休息中'}
           </div>
           <h2>{hasOwnName ? persona!.name : naming.name || displayName(undefined)}</h2>
           <span

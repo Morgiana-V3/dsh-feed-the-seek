@@ -232,24 +232,49 @@ function SettingsBody({
     <>
       <div className="fish-frame">
         <div className="fish-toolbar">
-          <label className="fish-persona-select">
-            伙伴
-            <select
-              value={state.scope.persona}
-              disabled={isBusy}
-              onChange={(event) => setViewedPersonaId(event.target.value)}
-            >
-              {state.personas.map((persona) => (
-                <option
-                  key={persona.id}
-                  value={persona.id}
-                >
-                  {displayName(persona.name)}
-                  {persona.id === state.activePersona ? ' · 正在陪你' : ' · 以前的她'}
-                </option>
-              ))}
-            </select>
-          </label>
+          <div className="fish-toolbar-main">
+            <label className="fish-persona-select">
+              查看伙伴
+              <select
+                value={state.scope.persona}
+                disabled={isBusy}
+                onChange={(event) => setViewedPersonaId(event.target.value)}
+              >
+                {state.personas.map((persona) => (
+                  <option
+                    key={persona.id}
+                    value={persona.id}
+                  >
+                    {displayName(persona.name)}
+                    {persona.id === state.activePersona ? ' · 陪伴新对话' : ''}
+                  </option>
+                ))}
+              </select>
+            </label>
+            {isViewingRetained ? (
+              <button
+                type="button"
+                className="fish-button fish-button-small"
+                disabled={isBusy}
+                title={`她的记忆都还在，之前和她开始的对话仍由她陪伴。新对话目前由「${displayName(activePersona?.name)}」陪伴，点一下改为由她陪伴。`}
+                onClick={async () => {
+                  if (await submitAction('persona/activate', { scope: state.scope })) {
+                    notify(`之后的新对话由「${displayName(viewedPersona?.name)}」陪伴`)
+                  }
+                }}
+              >
+                让她陪伴新对话
+              </button>
+            ) : (
+              <span
+                className="fish-tag"
+                data-ok
+                title="之后新开的对话由她陪伴；已经开始的对话仍由当时的伙伴陪伴。"
+              >
+                陪伴新对话中
+              </span>
+            )}
+          </div>
           <PersonaName
             key={state.scope.persona}
             state={state}
@@ -259,20 +284,6 @@ function SettingsBody({
           />
           {state.demo && <span className="fish-tag fish-tag-dashed">演示数据</span>}
         </div>
-        {isViewingRetained && (
-          <div className="fish-retained-banner">
-            正在看以前的「{displayName(viewedPersona?.name)}
-            」：她的记忆都还在，但不再参与新的对话；新的对话由「{displayName(activePersona?.name)}
-            」陪你。
-            <button
-              type="button"
-              className="fish-text-button"
-              onClick={() => setViewedPersonaId(state.activePersona)}
-            >
-              回到现在的她
-            </button>
-          </div>
-        )}
         <nav
           className="fish-tabs"
           role="tablist"

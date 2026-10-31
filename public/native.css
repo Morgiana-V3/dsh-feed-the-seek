@@ -261,9 +261,29 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
+  min-height: 52px;
   padding: 8px 12px;
   background: var(--fish-soft);
   border-bottom: 2px solid var(--fish-ink);
+}
+
+/* The status slot swaps between a tag and a button in place, so switching never moves the page. */
+.fish-brain .fish-toolbar-main {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.fish-brain .fish-toolbar-main > .fish-tag,
+.fish-brain .fish-toolbar-main > .fish-button {
+  flex-shrink: 0;
+  white-space: nowrap;
+  line-height: 22px;
+}
+
+.fish-brain .fish-toolbar-main > .fish-tag {
+  padding: 1px 8px;
 }
 
 .fish-brain .fish-persona-select {
@@ -299,22 +319,6 @@
 .fish-brain .fish-persona-select select {
   max-width: 270px;
   min-width: 0;
-}
-
-.fish-brain .fish-retained-banner {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 4px 10px;
-  padding: 6px 12px;
-  color: #7a4c12;
-  background: #fff6e6;
-  border-bottom: 2px solid var(--fish-ink);
-  background-image: repeating-linear-gradient(
-    135deg,
-    transparent 0 6px,
-    rgba(181, 112, 27, 0.07) 6px 12px
-  );
 }
 
 .fish-brain .fish-tabs {

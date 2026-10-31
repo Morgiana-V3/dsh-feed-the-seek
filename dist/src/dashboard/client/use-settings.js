@@ -119,13 +119,23 @@ export function useSettings() {
         setIsBusy(true);
         setActionError('');
         try {
-            const result = await request(endpoint, body, state.token);
-            await loadSettings();
+            let result;
+            try {
+                result = await request(endpoint, body, state.token);
+            }
+            catch (error) {
+                setActionError(error instanceof Error ? error.message : '操作失败');
+                return null;
+            }
+            // The action already succeeded; a failed refresh must not read as a failure, or the user
+            // repeats it (adopting the same companion twice). Polling catches up on its own.
+            try {
+                await loadSettings();
+            }
+            catch {
+                setConnectionError('操作已完成，但页面刷新失败，稍后会自动更新');
+            }
             return result;
-        }
-        catch (error) {
-            setActionError(error instanceof Error ? error.message : '操作失败');
-            return null;
         }
         finally {
             setIsBusy(false);

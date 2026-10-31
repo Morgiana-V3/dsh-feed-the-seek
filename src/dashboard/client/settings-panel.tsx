@@ -2,7 +2,7 @@ import * as React from 'react'
 import type { Persona } from '../../persona/index.js'
 import type { Settings } from '../../settings/index.js'
 import { type SettingsState, type SubmitAction } from '../contracts.js'
-import { Toggle } from './components.js'
+import { Toggle, displayName } from './components.js'
 import { RetrievalSettings } from './retrieval-settings.js'
 
 const masterSetting = {
@@ -56,11 +56,15 @@ export function SettingsPanel({
 
   const isEnabled = state.settings.enabled
   const usage = state.learningUsage
+  const viewedName = displayName(
+    state.personas.find((persona) => persona.id === state.scope.persona)?.name,
+  )
 
   return (
     <div>
       <div className="fish-section-heading">
         <h3>功能开关</h3>
+        <span className="fish-muted">对所有伙伴生效</span>
       </div>
       <div className="fish-toggle-grid">
         <Toggle
@@ -97,7 +101,7 @@ export function SettingsPanel({
       {usage && (
         <dl
           className="fish-usage"
-          aria-label="当前伙伴的后台用量"
+          aria-label={`「${viewedName}」的后台用量`}
         >
           <div>
             <dt>后台调用</dt>
@@ -120,6 +124,7 @@ export function SettingsPanel({
           </div>
         </dl>
       )}
+      {usage && <p className="fish-muted fish-usage-note">以上是「{viewedName}」的后台用量。</p>}
       <RetrievalSettings
         state={state}
         isBusy={isBusy}
@@ -127,10 +132,10 @@ export function SettingsPanel({
         notify={notify}
       />
       <details className="fish-fold">
-        <summary>重新领养</summary>
+        <summary>领养新伙伴</summary>
         <div className="fish-fold-body">
           <p className="fish-muted">
-            新的伙伴会从零开始认识你，之后新开的对话由她陪伴；已经在进行的对话仍由原来的伙伴继续。原来伙伴的记忆会保留，可以随时在顶部切换查看。
+            新的伙伴会从零开始认识你，之后新开的对话由她陪伴；已经在进行的对话仍由原来的伙伴继续。原来的伙伴不会被删除，记忆都会保留：在顶部“查看伙伴”里选中她，就能让她重新陪伴新对话。
           </p>
           <form
             className="fish-form"
@@ -152,7 +157,7 @@ export function SettingsPanel({
               className="fish-button"
               disabled={isBusy}
             >
-              重新领养
+              领养
             </button>
           </form>
         </div>

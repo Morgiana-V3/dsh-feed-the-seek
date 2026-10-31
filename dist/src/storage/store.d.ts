@@ -35,6 +35,8 @@ export declare class Store {
         name: string;
         createdAt: string;
     };
+    /** Chooses who accompanies new sessions; sessions already bound keep their companion. */
+    activatePersona(id: string): Persona;
     renamePersona(id: string, name: string): {
         name: string;
         id: string;

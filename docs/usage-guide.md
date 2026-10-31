@@ -80,12 +80,12 @@ npm test
 npm pack
 ```
 
-`npm pack` 会先构建并执行发布内容检查，生成 `dsh-feed-the-seek-0.2.16.tgz`。正式版通过 npm 和 GitHub Release 分发，社区索引收录需要另行申请。
+`npm pack` 会先构建并执行发布内容检查，生成 `dsh-feed-the-seek-1.0.0.tgz`。正式版通过 npm 和 GitHub Release 分发，社区索引收录需要另行申请。
 
 普通 CLI profile 可安装本地包：
 
 ```sh
-dsh plugin --profile tui add ./dsh-feed-the-seek-0.2.16.tgz
+dsh plugin --profile tui add ./dsh-feed-the-seek-1.0.0.tgz
 ```
 
 桌面开发调试：

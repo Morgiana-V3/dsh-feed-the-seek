@@ -7,7 +7,7 @@
 
 给 DeepSeek 养一条会记事的鱼。
 
-[GitHub Release](https://github.com/Morgiana-V3/dsh-feed-the-seek/releases/tag/v0.2.16) · [使用与开发参考](docs/usage-guide.md) · [架构说明](docs/architecture.md)
+[GitHub Release](https://github.com/Morgiana-V3/dsh-feed-the-seek/releases/tag/v1.0.0) · [使用与开发参考](docs/usage-guide.md) · [架构说明](docs/architecture.md)
 
 </div>
 
@@ -70,9 +70,9 @@
 
 ![设置](docs/screenshots/settings.png)
 
-## 也可以重新领养
+## 领养新伙伴
 
-想要一份全新的记忆，可以领养一个新伙伴。之后新开的对话由新伙伴陪伴，正在进行的对话还是原来那位。每个伙伴都可以起自己的名字。
+想要一份全新的记忆，可以领养一个新伙伴。之后新开的对话由新伙伴陪伴，正在进行的对话还是原来那位。原来的伙伴和她的记忆都会保留，在顶部“查看伙伴”里选中她，就能让她重新陪伴新对话。每个伙伴都可以起自己的名字。
 
 ## 安装
 
@@ -81,10 +81,10 @@
 在 DSH 的「添加插件」中输入：
 
 ```text
-dsh-feed-the-seek@0.2.16
+dsh-feed-the-seek@1.0.0
 ```
 
-或者从 [Release 页面](https://github.com/Morgiana-V3/dsh-feed-the-seek/releases/tag/v0.2.16)下载 `.tgz` 安装包，在「添加插件」中填写它的绝对路径。安装后完全退出并重新打开 DSH 即可。
+或者从 [Release 页面](https://github.com/Morgiana-V3/dsh-feed-the-seek/releases/tag/v1.0.0)下载 `.tgz` 安装包，在「添加插件」中填写它的绝对路径。安装后完全退出并重新打开 DSH 即可。
 
 从源码构建（需要 Node.js 22.21+）：
 

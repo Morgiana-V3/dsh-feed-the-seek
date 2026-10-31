@@ -121,6 +121,20 @@ export class Store {
         });
         return persona;
     }
+    /** Chooses who accompanies new sessions; sessions already bound keep their companion. */
+    activatePersona(id) {
+        const persona = this.personas().find((entry) => entry.id === id);
+        if (!persona) {
+            throw new Error('伙伴不存在');
+        }
+        if (this.activePersona() !== id) {
+            this.transaction(() => {
+                this.setMeta('activePersona', id);
+                this.bump();
+            });
+        }
+        return persona;
+    }
     renamePersona(id, name) {
         name = name.trim();
         if (!name || name.length > 40) {

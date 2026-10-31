@@ -125,3 +125,23 @@ test('history pages query all records, isolate companions and stay stable when n
   assert.equal((await (await post('history', { scope, query: "%_'" })).json()).total, 0)
   assert.equal((await post('history', { scope, page: -1 })).status, 400)
 })
+
+test('a retained companion can accompany new sessions again without moving bound sessions', async (t) => {
+  const { store, post } = await fixture(t)
+  store.bindSession('before')
+  const created = await (await post('persona', { name: '小鲸' })).json()
+  assert.equal(store.activePersona(), created.id)
+  store.bindSession('during')
+  assert.equal((await post('persona/activate', { scope }, '')).status, 403)
+  assert.equal(
+    (await post('persona/activate', { scope: { ...scope, persona: 'missing' } })).status,
+    400,
+  )
+  assert.equal(store.activePersona(), created.id)
+  assert.equal((await post('persona/activate', { scope })).status, 200)
+  assert.equal(store.activePersona(), 'default')
+  assert.equal(store.bindSession('before'), 'default')
+  assert.equal(store.bindSession('during'), created.id)
+  assert.equal(store.bindSession('after'), 'default')
+  assert.equal(store.personas().length, 2)
+})
