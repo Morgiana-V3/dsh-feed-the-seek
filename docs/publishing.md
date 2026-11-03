@@ -4,12 +4,12 @@
 
 ## 安装
 
-在 DSH「添加插件」中输入 `dsh-feed-the-seek@1.0.0`，或从 [GitHub Release](https://github.com/Morgiana-V3/dsh-feed-the-seek/releases/tag/v1.0.0) 下载 `.tgz` 并填写本地绝对路径。安装后完全退出并重启 DSH。
+在 DSH「添加插件」中输入 `dsh-feed-the-seek@1.0.1`，或从 [GitHub Release](https://github.com/Morgiana-V3/dsh-feed-the-seek/releases/tag/v1.0.1) 下载 `.tgz` 并填写本地绝对路径。安装后完全退出并重启 DSH。
 
 CLI 用户可按实际 profile 安装：
 
 ```sh
-dsh plugin --profile web add dsh-feed-the-seek@1.0.0
+dsh plugin --profile web add dsh-feed-the-seek@1.0.1
 ```
 
 `web` 是 CLI 示例，不代表桌面应用的 profile。桌面用户优先使用应用内的「添加插件」。
@@ -27,7 +27,7 @@ npm ci
 npm test
 npm run check:all
 npm pack
-npm publish ./dsh-feed-the-seek-1.0.0.tgz --access public --tag latest
+npm publish ./dsh-feed-the-seek-1.0.1.tgz --access public --tag latest
 ```
 
 发布需要已登录且有包权限的 npm 账号，账号还可能要求额外身份验证。正式版使用 `latest`；预发布版本使用单独的版本号和 `beta` 标签。npm 不允许重复发布同名同版本，见 [npm publish 文档](https://docs.npmjs.com/cli/v11/commands/npm-publish/)。
@@ -40,7 +40,7 @@ Git 地址安装依赖仓库中的预构建文件；安装端不应依赖执行�
 
 图片制作工作流、模型路径配置、中间帧、对照预览、执行记录与临时数据应存放在项目目录之外。源码中的 `public/assets` 只保留运行所需的最终素材、静态回退图及来源说明。`workflows/`、`outputs/`、`.feed-the-seek/` 和 Python 缓存均不提交；发布包由 `package.json` 的 `files` 白名单限定。
 
-支持范围为 **Windows、单人本地使用**。已验证 DSH 0.2.1-rc.5 的内核集成；QQ 具体插件联调、多人身份隔离和跨平台安装仍需进一步验证。发布说明应列出实际完成的检查，不能把宿主集成测试等同于完整桌面界面验收。
+已验证 **Windows、单人使用**及 DSH 0.2.1-rc.5 的内核集成。1.0.1 补充挂载设置页的域名、HTTPS 与自定义端口支持，HTTP 回归测试覆盖代理保留 Host 的场景；未在反馈用户的实际内网穿透环境验证。远程访问需由 DSH 或前置代理提供认证。QQ 具体插件联调、多人身份隔离和跨平台安装仍需进一步验证。发布说明应列出实际完成的检查，不能把宿主集成测试等同于完整桌面界面验收。
 
 ## 搜索收录
 

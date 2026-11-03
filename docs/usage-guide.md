@@ -72,7 +72,7 @@
 
 ## 安装与开发
 
-需要支持 `node:sqlite` 的 Node.js 22.21 或更新版本，以及 DSH 提供的 Agent、Session、模型、工具和系统提示服务。本地桌面运行时已经过集成检查；其他操作系统和远程 Web 部署尚未实测，当前管理接口按本机访问设计。
+需要支持 `node:sqlite` 的 Node.js 22.21 或更新版本，以及 DSH 提供的 Agent、Session、模型、工具和系统提示服务。本地桌面运行时已经过集成检查；挂载设置路由的域名、HTTPS 来源及端口组合已经过 HTTP 集成测试，其他操作系统和实际远程服务器部署尚未实测。
 
 ```sh
 npm ci
@@ -80,12 +80,12 @@ npm test
 npm pack
 ```
 
-`npm pack` 会先构建并执行发布内容检查，生成 `dsh-feed-the-seek-1.0.0.tgz`。正式版通过 npm 和 GitHub Release 分发，社区索引收录需要另行申请。
+`npm pack` 会先构建并执行发布内容检查，生成 `dsh-feed-the-seek-1.0.1.tgz`。正式版通过 npm 和 GitHub Release 分发，社区索引收录需要另行申请。
 
 普通 CLI profile 可安装本地包：
 
 ```sh
-dsh plugin --profile tui add ./dsh-feed-the-seek-1.0.0.tgz
+dsh plugin --profile tui add ./dsh-feed-the-seek-1.0.1.tgz
 ```
 
 桌面开发调试：
@@ -97,6 +97,20 @@ npm run dev:dsh
 首次关联或修改依赖后重启 DSH，进入「设置 → 大肥鱼饲养手册」。开发命令在 Windows 默认安装目录寻找 DSH。退出开发链接并恢复安装版：`npm run dev:dsh:stop`。
 
 插件标识为 `feed-the-seek`。早期版本使用的 `yuwen` 标识、数据目录和密钥名已不再读取，旧记忆不会自动迁移。
+
+## 远程部署
+
+插件挂载到 DSH 的 `/fish-brain` 路由时，沿用宿主的域名与入口认证，不再要求 Host 必须为 localhost。HTTPS 在代理侧终止、上游连接使用 HTTP 的情况也可以使用；浏览器 Origin 的域名与端口仍须匹配转发的 Host。
+
+反向代理或内网穿透需要保留原始 Host，包括对外暴露的非默认端口。Nginx 在现有 DSH 代理 location 中可加入：
+
+```nginx
+proxy_set_header Host $http_host;
+```
+
+这是对已有代理配置的补充，不是完整的 DSH 部署配置。[Nginx 官方说明](https://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_set_header)描述了 Host 的传递方式。代理如果把 Host 重写成 localhost，而浏览器的 Origin 仍为公开域名，写入请求会被来源检查拒绝；只增加 X-Forwarded-Host 不会绕过检查。
+
+公开访问需要由 DSH 或前置代理提供认证，并覆盖 `/fish-brain` 路由。插件的写入令牌用于请求校验，不是用户登录凭据。独立管理服务继续只监听回环地址，并拒绝非本机 Host；远程使用应走 DSH 挂载入口。
 
 ## 存储、密钥与费用
 

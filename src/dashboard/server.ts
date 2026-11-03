@@ -43,6 +43,36 @@ async function jsonBody(request: IncomingMessage) {
   }
   return JSON.parse(body || '{}')
 }
+function validRequestHost(host: string, mounted: boolean) {
+  if (!host || /[\s/@\\?#,]/.test(host)) {
+    return false
+  }
+  try {
+    const address = new URL(`http://${host}`)
+    // Mounted routes inherit DSH's host/authentication policy. Only the separate
+    // loopback dashboard needs its own DNS-rebinding host restriction.
+    return mounted || ['127.0.0.1', 'localhost', '[::1]'].includes(address.hostname)
+  } catch {
+    return false
+  }
+}
+
+function matchesRequestOrigin(origin: string, host: string, mounted: boolean) {
+  try {
+    const source = new URL(origin)
+    if (source.protocol !== 'http:' && !(mounted && source.protocol === 'https:')) {
+      return false
+    }
+    // TLS can terminate at the reverse proxy. Compare the public authority using
+    // the browser's scheme; do not trust arbitrary X-Forwarded-Host headers.
+    return (
+      source.origin === origin && source.origin === new URL(`${source.protocol}//${host}`).origin
+    )
+  } catch {
+    return false
+  }
+}
+
 /**
  * Index coverage for the configured model only. Vectors of an earlier model or dimension stay
  * in the table but are never used, so counting them would overstate what semantic recall can find.
@@ -133,7 +163,7 @@ export function createDashboard(
   const handle = async (request: IncomingMessage, response: ServerResponse, mountPath = '') => {
     try {
       const host = request.headers.host || ''
-      if (!/^(127\.0\.0\.1|localhost):\d+$/.test(host)) {
+      if (!validRequestHost(host, Boolean(mountPath))) {
         response.writeHead(403)
         response.end('Invalid host')
         return
@@ -168,7 +198,11 @@ export function createDashboard(
         return scope
       }
       if (url.pathname.startsWith('/api/')) {
-        if (request.headers.origin && request.headers.origin !== `http://${host}`) {
+        const origin = request.headers.origin
+        if (
+          request.headers['sec-fetch-site'] === 'cross-site' ||
+          (origin && !matchesRequestOrigin(origin, host, Boolean(mountPath)))
+        ) {
           send({ error: '请求来源不匹配' }, 403)
           return
         }

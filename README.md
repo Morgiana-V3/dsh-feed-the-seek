@@ -7,7 +7,7 @@
 
 给 DeepSeek 养一条会记事的鱼。
 
-[GitHub Release](https://github.com/Morgiana-V3/dsh-feed-the-seek/releases/tag/v1.0.0) · [使用与开发参考](docs/usage-guide.md) · [架构说明](docs/architecture.md)
+[GitHub Release](https://github.com/Morgiana-V3/dsh-feed-the-seek/releases/tag/v1.0.1) · [使用与开发参考](docs/usage-guide.md) · [架构说明](docs/architecture.md)
 
 </div>
 
@@ -76,15 +76,15 @@
 
 ## 安装
 
-需要 DeepSeek Harness。目前在 Windows 桌面版上完成了验证，适合单人本地使用。
+需要 DeepSeek Harness。目前在 Windows 桌面版上完成了验证，按单人使用设计。远程 DSH 的设置页支持域名、HTTPS 和自定义端口；代理须保留原始 Host，并由 DSH 或代理提供入口认证，见[远程部署](docs/usage-guide.md#远程部署)。
 
 在 DSH 的「添加插件」中输入：
 
 ```text
-dsh-feed-the-seek@1.0.0
+dsh-feed-the-seek@1.0.1
 ```
 
-或者从 [Release 页面](https://github.com/Morgiana-V3/dsh-feed-the-seek/releases/tag/v1.0.0)下载 `.tgz` 安装包，在「添加插件」中填写它的绝对路径。安装后完全退出并重新打开 DSH 即可。
+或者从 [Release 页面](https://github.com/Morgiana-V3/dsh-feed-the-seek/releases/tag/v1.0.1)下载 `.tgz` 安装包，在「添加插件」中填写它的绝对路径。安装后完全退出并重新打开 DSH 即可。
 
 从源码构建（需要 Node.js 22.21+）：
 
